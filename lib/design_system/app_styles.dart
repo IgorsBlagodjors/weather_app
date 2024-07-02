@@ -116,7 +116,7 @@ class AppStyles {
     fontFamily: 'SF Pro Text',
     fontWeight: FontWeight.w600,
     letterSpacing: -0.078,
-    height: 1.125,
+    //height: 1.38462,
     color: AppColors.darkPrimary,
   );
   static const boldSubheadline = TextStyle(
@@ -124,7 +124,7 @@ class AppStyles {
     fontFamily: 'SF Pro Text',
     fontWeight: FontWeight.w600,
     letterSpacing: -0.5,
-    height: 1.25,
+    //height: 1.3333,
     color: AppColors.darkPrimary,
   );
   static const boldCallout = TextStyle(
@@ -153,10 +153,10 @@ class AppStyles {
   );
   static const boldTitle3 = TextStyle(
     fontFamily: 'SF Pro Display',
-    height: 1.5,
+    height: 1.2,
     fontSize: 20,
-    fontWeight: FontWeight.w600,
-    letterSpacing: 0.38,
+    fontWeight: FontWeight.w400,
+    //letterSpacing: 0.38,
     color: AppColors.darkPrimary,
   );
   static const boldTitle2 = TextStyle(

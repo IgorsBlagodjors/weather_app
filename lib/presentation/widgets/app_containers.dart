@@ -4,7 +4,6 @@ import 'package:weather_app/design_system/app_styles.dart';
 
 class HourlyForecastContainer extends StatelessWidget {
   final bool isNow;
-
   final String hour;
   final int degree;
   final int? label;
@@ -27,21 +26,21 @@ class HourlyForecastContainer extends StatelessWidget {
         borderRadius: BorderRadius.circular(30),
         border: Border.all(
           color: isNow
-              ? AppColors.activeDecorationBorderColor
-              : AppColors.defaultDecorationBorderColor,
+              ? AppColors.darkPrimary.withOpacity(0.50)
+              : AppColors.darkPrimary.withOpacity(0.2),
           width: 1,
         ),
-        color: isNow ? AppColors.solid1 : AppColors.defaultDecorationColor1,
-        boxShadow: const [
+        color: isNow ? AppColors.solid1 : AppColors.solid1.withOpacity(0.2),
+        boxShadow: [
           BoxShadow(
-            color: Color.fromRGBO(255, 255, 255, 0.25),
-            offset: Offset(1, 1),
+            color: AppColors.darkPrimary.withOpacity(0.25),
+            offset: const Offset(1, 1),
             blurRadius: 0,
             spreadRadius: 0,
           ),
           BoxShadow(
-            color: Color.fromRGBO(0, 0, 0, 0.25),
-            offset: Offset(5, 4),
+            color: AppColors.lightPrimary.withOpacity(0.25),
+            offset: const Offset(5, 4),
             blurRadius: 10,
             spreadRadius: 0,
           ),
@@ -50,44 +49,50 @@ class HourlyForecastContainer extends StatelessWidget {
       child: Stack(
         alignment: Alignment.center,
         children: [
-          Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(
-                hour,
-                style: AppStyles.boldSubheadline,
-              ),
-              const SizedBox(
-                height: 16,
-              ),
-              Container(
-                padding: const EdgeInsets.only(
-                  top: 22,
+          Padding(
+            padding:
+                const EdgeInsets.only(top: 16, bottom: 16, left: 8, right: 8),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  hour,
+                  style: AppStyles.boldSubheadline,
                 ),
-                width: 44,
-                height: 38,
-                color: isNow
-                    ? AppColors.solid1
-                    : AppColors.defaultDecorationColor1,
-                child: Center(
-                  child: label != null
-                      ? Text(
-                          '$label %',
-                          style: AppStyles.boldFootnote.copyWith(
-                            color: const Color(0xFF40CBD8),
-                          ),
-                        )
-                      : null,
+                const SizedBox(
+                  height: 16,
                 ),
-              ),
-              const SizedBox(
-                height: 16,
-              ),
-              Text(
-                '$degree°',
-                style: AppStyles.boldTitle3,
-              ),
-            ],
+                Container(
+                  width: 44,
+                  height: 38,
+                  color: isNow
+                      ? AppColors.solid1
+                      : AppColors.solid1.withOpacity(0.2),
+                  child: Transform.translate(
+                    offset: const Offset(0, 2),
+                    child: Align(
+                      alignment: Alignment.bottomCenter,
+                      child: label != null
+                          ? Text(
+                              textAlign: TextAlign.center,
+                              '$label %',
+                              style: AppStyles.boldFootnote.copyWith(
+                                color: AppColors.labelColor,
+                              ),
+                            )
+                          : const SizedBox.shrink(),
+                    ),
+                  ),
+                ),
+                const SizedBox(
+                  height: 16,
+                ),
+                Text(
+                  '$degree°',
+                  style: AppStyles.boldTitle3,
+                ),
+              ],
+            ),
           ),
           Positioned(
             top: 48,
@@ -96,7 +101,7 @@ class HourlyForecastContainer extends StatelessWidget {
               width: 32,
               height: 32,
             ),
-          )
+          ),
         ],
       ),
     );

@@ -16,9 +16,10 @@ class AppColors {
   static const Color solid3 = Color(0xFFC427FB);
   static const Color solid4 = Color(0xFFE0D9FF);
 
-  static const defaultDecorationColor1 = Color.fromRGBO(72, 49, 157, 0.20);
-  static const defaultDecorationBorderColor =
-      Color.fromRGBO(255, 255, 255, 0.20);
-  static const activeDecorationBorderColor =
-      Color.fromRGBO(255, 255, 255, 0.50);
+  static const Color labelColor = Color(0xFF40CBD8);
+
+  static const customButtonColors = [
+    Color(0xFFF5F5F9),
+    Color(0xFFDADFE7),
+  ];
 }
