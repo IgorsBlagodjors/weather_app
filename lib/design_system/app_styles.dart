@@ -156,7 +156,7 @@ class AppStyles {
     height: 1.2,
     fontSize: 20,
     fontWeight: FontWeight.w400,
-    //letterSpacing: 0.38,
+    letterSpacing: 0.38,
     color: AppColors.darkPrimary,
   );
   static const boldTitle2 = TextStyle(

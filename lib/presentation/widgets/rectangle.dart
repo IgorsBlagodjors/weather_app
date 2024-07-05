@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:weather_app/design_system/app_colors.dart';
 import 'package:weather_app/design_system/app_gradiend.dart';
+import 'package:weather_app/design_system/app_styles.dart';
 
 class Rectangle extends StatelessWidget {
   const Rectangle({super.key});
@@ -7,10 +9,77 @@ class Rectangle extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: 338,
+      width: 342,
       height: 184,
-      child: CustomPaint(
-        foregroundPainter: AnotherPainter(),
+      child: Stack(
+        children: [
+          CustomPaint(
+            size: const Size(348, 184),
+            foregroundPainter: AnotherPainter(),
+          ),
+          Row(
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(left: 20),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const SizedBox(
+                      height: 59,
+                    ),
+                    const Text(
+                      '19°',
+                      style: TextStyle(
+                        color: Color(0xFFFFFFFF),
+                        fontFamily: 'SF Pro Display',
+                        fontSize: 64,
+                        fontWeight: FontWeight.w400,
+                        height: 41 / 64,
+                        letterSpacing: 0.374,
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 24,
+                    ),
+                    Text(
+                      overflow: TextOverflow.ellipsis,
+                      'H:24°  L:18°',
+                      style: AppStyles.regularFootnote.copyWith(
+                        color: AppColors.darkSecondary.withOpacity(0.6),
+                      ),
+                    ),
+                    const Text(
+                      overflow: TextOverflow.ellipsis,
+                      'Montreal, Canada',
+                      style: AppStyles.regularBody,
+                    ),
+                  ],
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(right: 2),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  children: [
+                    Image.asset(
+                      'assets/Moon_cloud_mid_rain.png',
+                      width: 160,
+                      height: 160,
+                    ),
+                    const Padding(
+                      padding: EdgeInsets.only(right: 24),
+                      child: Text(
+                        overflow: TextOverflow.ellipsis,
+                        'Mid Rain',
+                        style: AppStyles.regularFootnote,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          )
+        ],
       ),
     );
   }
