@@ -17,6 +17,7 @@ class AppColors {
   static const Color solid4 = Color(0xFFE0D9FF);
 
   static const Color labelColor = Color(0xFF40CBD8);
+  static const Color weatherDetailsSubheadline = Color(0xFF7B7997);
 
   static const customButtonColors = [
     Color(0xFFF5F5F9),

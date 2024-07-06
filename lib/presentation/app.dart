@@ -13,17 +13,19 @@ class _AppPageState extends State<AppPage> {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-      child: Container(
-        decoration: AppGradient.appBackground,
-        child: const Padding(
-          padding: EdgeInsets.all(50),
-          child: Column(
-            children: [
-              Rectangle(),
-              SizedBox(
-                height: 15,
-              ),
-            ],
+      child: Scaffold(
+        body: Container(
+          decoration: AppGradient.appBackground,
+          child: const Padding(
+            padding: EdgeInsets.all(50),
+            child: Column(
+              children: [
+                Rectangle(),
+                SizedBox(
+                  height: 15,
+                ),
+              ],
+            ),
           ),
         ),
       ),

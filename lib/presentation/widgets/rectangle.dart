@@ -17,68 +17,74 @@ class Rectangle extends StatelessWidget {
             size: const Size(348, 184),
             foregroundPainter: AnotherPainter(),
           ),
-          Row(
-            children: [
-              Padding(
-                padding: const EdgeInsets.only(left: 20),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const SizedBox(
-                      height: 59,
-                    ),
-                    const Text(
-                      '19°',
-                      style: TextStyle(
-                        color: Color(0xFFFFFFFF),
-                        fontFamily: 'SF Pro Display',
-                        fontSize: 64,
-                        fontWeight: FontWeight.w400,
-                        height: 41 / 64,
-                        letterSpacing: 0.374,
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 24,
-                    ),
-                    Text(
-                      overflow: TextOverflow.ellipsis,
-                      'H:24°  L:18°',
-                      style: AppStyles.regularFootnote.copyWith(
-                        color: AppColors.darkSecondary.withOpacity(0.6),
-                      ),
-                    ),
-                    const Text(
-                      overflow: TextOverflow.ellipsis,
-                      'Montreal, Canada',
-                      style: AppStyles.regularBody,
-                    ),
-                  ],
+          Padding(
+            padding: const EdgeInsets.only(left: 20),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const SizedBox(
+                  height: 59,
                 ),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(right: 2),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.end,
+                const Text(
+                  '19°',
+                  style: TextStyle(
+                    color: AppColors.darkPrimary,
+                    fontFamily: 'SF Pro Display',
+                    fontSize: 64,
+                    fontWeight: FontWeight.w400,
+                    height: 41 / 64,
+                    letterSpacing: 0.374,
+                  ),
+                ),
+                const SizedBox(
+                  height: 24,
+                ),
+                Text(
+                  overflow: TextOverflow.ellipsis,
+                  'H:24°  L:18°',
+                  style: AppStyles.regularFootnote.copyWith(
+                    color: AppColors.darkSecondary.withOpacity(0.6),
+                  ),
+                ),
+                const Row(
                   children: [
-                    Image.asset(
-                      'assets/Moon_cloud_mid_rain.png',
-                      width: 160,
-                      height: 160,
-                    ),
-                    const Padding(
-                      padding: EdgeInsets.only(right: 24),
+                    Expanded(
                       child: Text(
                         overflow: TextOverflow.ellipsis,
-                        'Mid Rain',
-                        style: AppStyles.regularFootnote,
+                        'Montreal, Canada',
+                        style: AppStyles.regularBody,
+                      ),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.only(right: 2),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.end,
+                        children: [
+                          Padding(
+                            padding: EdgeInsets.only(right: 24),
+                            child: Text(
+                              overflow: TextOverflow.ellipsis,
+                              'Mid Rain',
+                              style: AppStyles.regularFootnote,
+                            ),
+                          ),
+                        ],
                       ),
                     ),
                   ],
                 ),
-              ),
-            ],
-          )
+              ],
+            ),
+          ),
+          Positioned(
+            top: -12,
+            right: 4,
+            child: Image.asset(
+              'assets/Moon_cloud_mid_rain.png',
+              width: 160,
+              height: 160,
+            ),
+          ),
         ],
       ),
     );
