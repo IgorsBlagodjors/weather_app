@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:weather_app/design_system/app_colors.dart';
-import 'package:weather_app/design_system/decorations.dart';
 import 'package:weather_app/presentation/widgets/air_quality.dart';
+import 'package:weather_app/presentation/widgets/sunrise.dart';
+import 'package:weather_app/presentation/widgets/uv_index.dart';
 
 class WeatherDetailsPage extends StatelessWidget {
   const WeatherDetailsPage({super.key});
@@ -35,31 +36,23 @@ class WeatherDetailsPage extends StatelessWidget {
               ),
             ],
           ),
-          child: Padding(
-            padding: const EdgeInsets.all(32),
+          child: const Padding(
+            padding: EdgeInsets.all(32),
             child: Column(
               children: [
-                const AirQuality(),
-                const SizedBox(
+                AirQuality(),
+                SizedBox(
                   height: 14,
                 ),
                 Row(
                   children: [
-                    Container(
-                      height: 164,
-                      width: 164,
-                      decoration: AppDecorations.weatherDetailsDecoration,
-                    ),
-                    const SizedBox(
+                    UvIndex(),
+                    SizedBox(
                       width: 14,
                     ),
-                    Container(
-                      height: 164,
-                      width: 164,
-                      decoration: AppDecorations.weatherDetailsDecoration,
-                    ),
+                    SunRise(),
                   ],
-                )
+                ),
               ],
             ),
           ),

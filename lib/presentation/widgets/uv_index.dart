@@ -4,24 +4,24 @@ import 'package:weather_app/design_system/app_styles.dart';
 import 'package:weather_app/design_system/decorations.dart';
 import 'package:weather_app/presentation/widgets/custom_indicator.dart';
 
-class AirQuality extends StatelessWidget {
-  const AirQuality({super.key});
+class UvIndex extends StatelessWidget {
+  const UvIndex({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 168,
-      width: 348,
+      height: 164,
+      width: 164,
       decoration: AppDecorations.weatherDetailsDecoration,
       child: Padding(
-        padding: const EdgeInsets.all(22.0),
+        padding: const EdgeInsets.all(15),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Row(
               children: [
                 const Icon(
-                  Icons.fitbit_outlined,
+                  Icons.wb_sunny,
                   color: AppColors.weatherDetailsSubheadline,
                   size: 15,
                 ),
@@ -29,7 +29,7 @@ class AirQuality extends StatelessWidget {
                   width: 2,
                 ),
                 Text(
-                  'AIR QUALITY',
+                  'UV INDEX',
                   style: AppStyles.boldFootnote.copyWith(
                     color: AppColors.weatherDetailsSubheadline,
                   ),
@@ -37,38 +37,28 @@ class AirQuality extends StatelessWidget {
               ],
             ),
             const SizedBox(
-              height: 10,
+              height: 5,
             ),
             const Text(
-              '3-Low Health Risk',
-              style: AppStyles.boldTitle3,
+              '4',
+              style: TextStyle(
+                fontFamily: 'SF Pro Display',
+                fontSize: 32,
+                fontWeight: FontWeight.w400,
+                letterSpacing: 0.374,
+                color: AppColors.darkPrimary,
+              ),
+            ),
+            const Text(
+              'Moderate',
+              style: AppStyles.boldTitle2,
             ),
             const SizedBox(
               height: 10,
             ),
             const CustomIndicator(
-              width: 301,
-              indicatorPosition: 0.2,
-            ),
-            const SizedBox(
-              height: 8,
-            ),
-            const Divider(
-              color: Color(0xFF323044),
-            ),
-            const SizedBox(
-              height: 7,
-            ),
-            const Row(
-              children: [
-                Expanded(
-                  child: Text('See more', style: AppStyles.regularBody),
-                ),
-                Icon(
-                  Icons.arrow_forward_ios,
-                  size: 15,
-                )
-              ],
+              width: 120,
+              indicatorPosition: 0.1,
             ),
           ],
         ),

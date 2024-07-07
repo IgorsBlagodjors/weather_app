@@ -3,10 +3,13 @@ import 'package:weather_app/design_system/app_colors.dart';
 
 class CustomIndicator extends StatelessWidget {
   final double width;
-  const CustomIndicator({super.key, required this.width});
+  final double indicatorPosition;
+  const CustomIndicator(
+      {super.key, required this.width, required this.indicatorPosition});
 
   @override
   Widget build(BuildContext context) {
+    double indicator = width * indicatorPosition;
     return Container(
       width: width,
       height: 5,
@@ -20,7 +23,7 @@ class CustomIndicator extends StatelessWidget {
       child: Row(
         children: [
           SizedBox(
-            width: width / 4 - 10,
+            width: indicator - 10,
           ),
           const CircleAvatar(
             radius: 5,
