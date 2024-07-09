@@ -1,18 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:weather_app/design_system/app_colors.dart';
 import 'package:weather_app/design_system/app_styles.dart';
-import 'package:weather_app/design_system/decorations.dart';
 import 'package:weather_app/presentation/widgets/custom_indicator.dart';
+import 'package:weather_app/presentation/widgets/weather_details_container.dart';
 
 class UvIndex extends StatelessWidget {
   const UvIndex({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: 164,
+    return WeatherDetailsContainer(
       width: 164,
-      decoration: AppDecorations.weatherDetailsDecoration,
+      height: 164,
       child: Padding(
         padding: const EdgeInsets.all(15),
         child: Column(

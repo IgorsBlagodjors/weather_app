@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:weather_app/design_system/app_colors.dart';
 import 'package:weather_app/design_system/app_styles.dart';
-import 'package:weather_app/design_system/decorations.dart';
+import 'package:weather_app/presentation/widgets/weather_details_container.dart';
 
 class SunRise extends StatelessWidget {
   const SunRise({super.key});
@@ -11,10 +11,9 @@ class SunRise extends StatelessWidget {
   Widget build(BuildContext context) {
     final now = DateTime.now();
     final currentTme = DateFormat('h:mm a').format(now);
-    return Container(
-      height: 164,
+    return WeatherDetailsContainer(
       width: 164,
-      decoration: AppDecorations.weatherDetailsDecoration,
+      height: 164,
       child: Column(
         children: [
           Padding(

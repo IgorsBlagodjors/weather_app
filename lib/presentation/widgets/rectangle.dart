@@ -94,36 +94,34 @@ class Rectangle extends StatelessWidget {
 class AnotherPainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
-    var y = size.height;
-    var x = size.width;
-
     var path = Path();
     var paint = Paint()
-      ..shader = AppGradient.linear2.createShader(Rect.fromLTWH(0, 0, x, y))
+      ..shader = AppGradient.linear2
+          .createShader(Rect.fromLTWH(0, 0, size.width, size.height))
       ..color = Colors.black
       ..strokeWidth = 1
       ..style = PaintingStyle.fill;
 
     path.moveTo(0, 30);
 
-    path.lineTo(0, y - 22);
+    path.lineTo(0, size.height - 22);
 
     path.arcToPoint(
-      Offset(22, y),
+      Offset(22, size.height),
       radius: const Radius.circular(22),
       clockwise: false,
     );
-    path.lineTo(x - 22, y);
+    path.lineTo(size.width - 22, size.height);
 
     path.arcToPoint(
-      Offset(x, y - 22),
+      Offset(size.width, size.height - 22),
       radius: const Radius.circular(22),
       clockwise: false,
     );
 
-    path.lineTo(x, y - 80);
+    path.lineTo(size.width, size.height - 80);
     path.arcToPoint(
-      Offset(x - 22, y - 105),
+      Offset(size.width - 22, size.height - 105),
       radius: const Radius.circular(22),
       clockwise: false,
     );

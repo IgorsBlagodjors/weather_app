@@ -36,25 +36,24 @@ class WeatherDetailsPage extends StatelessWidget {
               ),
             ],
           ),
-          child: const Padding(
-            padding: EdgeInsets.all(32),
-            child: Column(
-              children: [
-                AirQuality(),
-                SizedBox(
-                  height: 14,
-                ),
-                Row(
-                  children: [
-                    UvIndex(),
-                    SizedBox(
-                      width: 14,
-                    ),
-                    SunRise(),
-                  ],
-                ),
-              ],
-            ),
+          child: const Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              AirQuality(),
+              SizedBox(
+                height: 14,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  UvIndex(),
+                  SizedBox(
+                    width: 14,
+                  ),
+                  SunRise(),
+                ],
+              ),
+            ],
           ),
         ),
       ),
