@@ -36,8 +36,8 @@ class Wind extends StatelessWidget {
             ),
             Center(
               child: CustomPaint(
-                painter: WindDirectionPainter(degrees: 300),
-                size: const Size(164, 113),
+                painter: WindDirectionPainter(degrees: 180),
+                size: const Size(113, 113),
               ),
             ),
           ],
@@ -82,22 +82,34 @@ class WindDirectionPainter extends CustomPainter {
 
     // "Wind direction arrow
     double angle = pi * degrees / 180;
-    double pointerLength = radius * 1;
-    double arrowSize = 10.0;
-    Paint pointerPaint = Paint()
-      ..color = Colors.blue
+    double arrowSize = 25;
+    double boxSize = arrowSize / 3.57;
+    Paint boxPaint = Paint()
+      ..color = AppColors.darkPrimary
       ..style = PaintingStyle.fill;
+    Path boxPath = Path();
+    Path arrowPath = Path();
+    Paint arrowPaint = Paint()
+      ..color = AppColors.darkPrimary
+      ..style = PaintingStyle.stroke
+      ..strokeWidth = 2;
 
-    Path path = Path();
+    boxPath.moveTo(
+        centerX + radius * cos(angle), centerY + radius * sin(angle));
+    boxPath.lineTo(centerX + (radius - boxSize) * cos(angle - pi / 30),
+        centerY + (radius - boxSize) * sin(angle - pi / 30));
+    boxPath.lineTo(centerX + (radius - 5) * cos(angle),
+        centerY + (radius - 5) * sin(angle));
+    boxPath.lineTo(centerX + (radius - boxSize) * cos(angle + pi / 30),
+        centerY + (radius - boxSize) * sin(angle + pi / 30));
 
-    path.moveTo(centerX + pointerLength * cos(angle),
-        centerY + pointerLength * sin(angle));
-    path.lineTo(centerX + (pointerLength - arrowSize) * cos(angle - pi / 12),
-        centerY + (pointerLength - arrowSize) * sin(angle - pi / 12));
-    path.lineTo(centerX + (pointerLength - arrowSize) * cos(angle + pi / 12),
-        centerY + (pointerLength - arrowSize) * sin(angle + pi / 12));
-    path.close();
-    canvas.drawPath(path, pointerPaint);
+    arrowPath.moveTo(centerX + (radius - 5) * cos(angle),
+        centerY + (radius - 5) * sin(angle));
+    arrowPath.lineTo(centerX + (radius - arrowSize) * cos(angle),
+        centerY + (radius - arrowSize) * sin(angle));
+
+    canvas.drawPath(boxPath, boxPaint);
+    canvas.drawPath(arrowPath, arrowPaint);
 
     //Middle text
     TextPainter speedIndicator = TextPainter(
