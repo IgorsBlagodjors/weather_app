@@ -3,6 +3,8 @@ import 'package:weather_app/design_system/app_colors.dart';
 import 'package:weather_app/presentation/widgets/air_quality.dart';
 import 'package:weather_app/presentation/widgets/sunrise.dart';
 import 'package:weather_app/presentation/widgets/uv_index.dart';
+import 'package:weather_app/presentation/widgets/weather_details_container.dart';
+import 'package:weather_app/presentation/widgets/wind.dart';
 
 class WeatherDetailsPage extends StatelessWidget {
   const WeatherDetailsPage({super.key});
@@ -51,6 +53,23 @@ class WeatherDetailsPage extends StatelessWidget {
                     width: 14,
                   ),
                   SunRise(),
+                ],
+              ),
+              SizedBox(
+                height: 14,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Wind(),
+                  SizedBox(
+                    width: 14,
+                  ),
+                  WeatherDetailsContainer(
+                    width: 164,
+                    height: 164,
+                    child: Text('zz'),
+                  ),
                 ],
               ),
             ],

@@ -10,7 +10,7 @@ class SunRise extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final now = DateTime.now();
-    final currentTme = DateFormat('h:mm a').format(now);
+    final currentTime = DateFormat('h:mm a').format(now);
     return WeatherDetailsContainer(
       width: 164,
       height: 164,
@@ -42,10 +42,10 @@ class SunRise extends StatelessWidget {
                   ],
                 ),
                 Text(
-                  currentTme,
+                  currentTime,
                   style: const TextStyle(
                     fontFamily: 'SF Pro Display',
-                    fontSize: 32,
+                    fontSize: 30,
                     fontWeight: FontWeight.w400,
                     letterSpacing: 0.374,
                     color: AppColors.darkPrimary,
