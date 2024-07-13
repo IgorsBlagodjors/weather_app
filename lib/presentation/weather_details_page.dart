@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:weather_app/design_system/app_colors.dart';
 import 'package:weather_app/presentation/widgets/air_quality.dart';
+import 'package:weather_app/presentation/widgets/pressure.dart';
 import 'package:weather_app/presentation/widgets/sunrise.dart';
 import 'package:weather_app/presentation/widgets/uv_index.dart';
-import 'package:weather_app/presentation/widgets/weather_details_container.dart';
+import 'package:weather_app/presentation/widgets/weather_details_fixed_size.dart';
 import 'package:weather_app/presentation/widgets/wind.dart';
 
 class WeatherDetailsPage extends StatelessWidget {
@@ -13,66 +15,110 @@ class WeatherDetailsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        body: Container(
-          decoration: BoxDecoration(
-            gradient: const RadialGradient(
-              center: Alignment(0.9307, 0.7431),
-              radius: 1.1155,
-              colors: [
-                Color(0xFF45278B),
-                Color(0xFF2E335A),
+        body: SingleChildScrollView(
+          child: Container(
+            decoration: BoxDecoration(
+              gradient: const RadialGradient(
+                center: Alignment(0.9307, 0.7431),
+                radius: 1.1155,
+                colors: [
+                  Color(0xFF45278B),
+                  Color(0xFF2E335A),
+                ],
+                stops: [0.0, 1.0],
+              ),
+              boxShadow: [
+                BoxShadow(
+                  color: const Color(0xFF4a397f).withOpacity(0.7),
+                  offset: const Offset(0, 20),
+                  blurRadius: 100,
+                ),
+                const BoxShadow(
+                  color: AppColors.darkPrimary,
+                  offset: Offset(0, 1),
+                  blurRadius: 0,
+                  spreadRadius: 0,
+                ),
               ],
-              stops: [0.0, 1.0],
             ),
-            boxShadow: [
-              BoxShadow(
-                color: const Color(0xFF4a397f).withOpacity(0.7),
-                offset: const Offset(0, 20),
-                blurRadius: 100,
-              ),
-              const BoxShadow(
-                color: AppColors.darkPrimary,
-                offset: Offset(0, 1),
-                blurRadius: 0,
-                spreadRadius: 0,
-              ),
-            ],
-          ),
-          child: const Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              AirQuality(),
-              SizedBox(
-                height: 14,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
+            child: const Padding(
+              padding: EdgeInsets.symmetric(vertical: 22),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  UvIndex(),
+                  AirQuality(),
                   SizedBox(
-                    width: 14,
+                    height: 14,
                   ),
-                  SunRise(),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      UvIndex(),
+                      SizedBox(
+                        width: 14,
+                      ),
+                      SunRise(),
+                    ],
+                  ),
+                  SizedBox(
+                    height: 14,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Wind(),
+                      SizedBox(
+                        width: 14,
+                      ),
+                      WeatherDetailsFixedSize(
+                        title: 'RAINFALL',
+                        titleIcon: Icons.water_drop,
+                        description: '1.2 mm expected in next 24h',
+                        indications: '1.8 mm',
+                        additionalDescription: 'in last hour',
+                      )
+                    ],
+                  ),
+                  SizedBox(height: 14),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      WeatherDetailsFixedSize(
+                        titleIcon: FontAwesomeIcons.temperatureHalf,
+                        title: 'FEELS LIKE',
+                        indications: '19°',
+                        description: 'Similar to the actual temperature',
+                      ),
+                      SizedBox(
+                        width: 14,
+                      ),
+                      WeatherDetailsFixedSize(
+                        titleIcon: Icons.shower,
+                        title: 'HUMIDITY',
+                        indications: '90%',
+                        description: 'The dew point is 17 right now',
+                      ),
+                    ],
+                  ),
+                  SizedBox(height: 14),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      WeatherDetailsFixedSize(
+                        titleIcon: Icons.visibility_sharp,
+                        title: 'VISIBILITY',
+                        indications: '8 km',
+                        description: 'Similar to the actual temperature',
+                      ),
+                      SizedBox(
+                        width: 14,
+                      ),
+                      Pressure(),
+                    ],
+                  ),
                 ],
               ),
-              SizedBox(
-                height: 14,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Wind(),
-                  SizedBox(
-                    width: 14,
-                  ),
-                  WeatherDetailsContainer(
-                    width: 164,
-                    height: 164,
-                    child: Text('zz'),
-                  ),
-                ],
-              ),
-            ],
+            ),
           ),
         ),
       ),
