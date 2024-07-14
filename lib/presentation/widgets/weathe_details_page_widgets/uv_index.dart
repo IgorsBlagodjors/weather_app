@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:weather_app/design_system/app_colors.dart';
 import 'package:weather_app/design_system/app_styles.dart';
-import 'package:weather_app/presentation/widgets/custom_indicator.dart';
-import 'package:weather_app/presentation/widgets/weather_details_container.dart';
+import 'package:weather_app/presentation/widgets/weathe_details_page_widgets/custom_indicator.dart';
+import 'package:weather_app/presentation/widgets/weathe_details_page_widgets/weather_details_container.dart';
 
 class UvIndex extends StatelessWidget {
   const UvIndex({super.key});

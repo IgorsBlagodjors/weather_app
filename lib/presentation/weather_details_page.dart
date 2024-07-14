@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:weather_app/design_system/app_colors.dart';
-import 'package:weather_app/presentation/widgets/air_quality.dart';
-import 'package:weather_app/presentation/widgets/pressure.dart';
-import 'package:weather_app/presentation/widgets/sunrise.dart';
-import 'package:weather_app/presentation/widgets/uv_index.dart';
-import 'package:weather_app/presentation/widgets/weather_details_fixed_size.dart';
-import 'package:weather_app/presentation/widgets/wind.dart';
+import 'package:weather_app/presentation/widgets/weathe_details_page_widgets/air_quality.dart';
+import 'package:weather_app/presentation/widgets/weathe_details_page_widgets/pressure.dart';
+import 'package:weather_app/presentation/widgets/weathe_details_page_widgets/sunrise.dart';
+import 'package:weather_app/presentation/widgets/weathe_details_page_widgets/uv_index.dart';
+import 'package:weather_app/presentation/widgets/weathe_details_page_widgets/weather_details_fixed_size.dart';
+import 'package:weather_app/presentation/widgets/weathe_details_page_widgets/wind.dart';
 
 class WeatherDetailsPage extends StatelessWidget {
   const WeatherDetailsPage({super.key});
@@ -48,7 +48,7 @@ class WeatherDetailsPage extends StatelessWidget {
                 children: [
                   AirQuality(),
                   SizedBox(
-                    height: 14,
+                    height: 10,
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -61,7 +61,7 @@ class WeatherDetailsPage extends StatelessWidget {
                     ],
                   ),
                   SizedBox(
-                    height: 14,
+                    height: 10,
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -79,7 +79,9 @@ class WeatherDetailsPage extends StatelessWidget {
                       )
                     ],
                   ),
-                  SizedBox(height: 14),
+                  SizedBox(
+                    height: 10,
+                  ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
@@ -100,7 +102,9 @@ class WeatherDetailsPage extends StatelessWidget {
                       ),
                     ],
                   ),
-                  SizedBox(height: 14),
+                  SizedBox(
+                    height: 10,
+                  ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [

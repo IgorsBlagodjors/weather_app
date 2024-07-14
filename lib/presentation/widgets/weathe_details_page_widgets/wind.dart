@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:weather_app/design_system/app_colors.dart';
 import 'package:weather_app/design_system/app_styles.dart';
-import 'package:weather_app/presentation/widgets/weather_details_container.dart';
+import 'package:weather_app/presentation/widgets/weathe_details_page_widgets/weather_details_container.dart';
 
 class Wind extends StatelessWidget {
   const Wind({super.key});

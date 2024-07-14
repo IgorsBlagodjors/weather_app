@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:weather_app/design_system/app_colors.dart';
 import 'package:weather_app/design_system/app_styles.dart';
-import 'package:weather_app/presentation/widgets/weather_details_container.dart';
+import 'package:weather_app/presentation/widgets/weathe_details_page_widgets/weather_details_container.dart';
 
 class SunRise extends StatelessWidget {
   const SunRise({super.key});
@@ -15,10 +15,12 @@ class SunRise extends StatelessWidget {
       width: 164,
       height: 164,
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 15),
             child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 const SizedBox(
                   height: 15,
