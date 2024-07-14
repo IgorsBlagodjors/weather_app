@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:weather_app/presentation/weather_widgets_page.dart';
+import 'package:weather_app/presentation/title_page.dart';
 
 void main() {
   runApp(
     const MaterialApp(
-      home: WeatherWidgetsPage(),
+      home: TitlePage(),
     ),
   );
 }

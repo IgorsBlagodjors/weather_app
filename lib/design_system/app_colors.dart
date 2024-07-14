@@ -19,6 +19,7 @@ class AppColors {
   static const Color labelColor = Color(0xFF40CBD8);
   static const Color weatherDetailsSubheadline = Color(0xFF7B7997);
   static const Color circleColor = Color(0xFF685D90);
+  static const Color customBottomNav = Color(0xFF7582f4);
 
   static const customButtonColors = [
     Color(0xFFF5F5F9),
