@@ -3,8 +3,20 @@ import 'package:weather_app/design_system/app_colors.dart';
 import 'package:weather_app/design_system/app_gradiend.dart';
 import 'package:weather_app/design_system/app_styles.dart';
 
-class Rectangle extends StatelessWidget {
-  const Rectangle({super.key});
+class WeatherPolygon extends StatelessWidget {
+  final String indicator;
+  final String image;
+  final String city;
+  final String weatherDescription;
+  final String expectedRange;
+  const WeatherPolygon({
+    super.key,
+    required this.indicator,
+    required this.image,
+    required this.city,
+    required this.weatherDescription,
+    required this.expectedRange,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -25,9 +37,9 @@ class Rectangle extends StatelessWidget {
                 const SizedBox(
                   height: 59,
                 ),
-                const Text(
-                  '19°',
-                  style: TextStyle(
+                Text(
+                  indicator,
+                  style: const TextStyle(
                     color: AppColors.darkPrimary,
                     fontFamily: 'SF Pro Display',
                     fontSize: 64,
@@ -41,30 +53,30 @@ class Rectangle extends StatelessWidget {
                 ),
                 Text(
                   overflow: TextOverflow.ellipsis,
-                  'H:24°  L:18°',
+                  expectedRange,
                   style: AppStyles.regularFootnote.copyWith(
                     color: AppColors.darkSecondary.withOpacity(0.6),
                   ),
                 ),
-                const Row(
+                Row(
                   children: [
                     Expanded(
                       child: Text(
                         overflow: TextOverflow.ellipsis,
-                        'Montreal, Canada',
+                        city,
                         style: AppStyles.regularBody,
                       ),
                     ),
                     Padding(
-                      padding: EdgeInsets.only(right: 2),
+                      padding: const EdgeInsets.only(right: 2),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.end,
                         children: [
                           Padding(
-                            padding: EdgeInsets.only(right: 24),
+                            padding: const EdgeInsets.only(right: 24),
                             child: Text(
                               overflow: TextOverflow.ellipsis,
-                              'Mid Rain',
+                              weatherDescription,
                               style: AppStyles.regularFootnote,
                             ),
                           ),
@@ -80,7 +92,7 @@ class Rectangle extends StatelessWidget {
             top: -12,
             right: 4,
             child: Image.asset(
-              'assets/Moon_cloud_mid_rain.png',
+              image,
               width: 160,
               height: 160,
             ),
