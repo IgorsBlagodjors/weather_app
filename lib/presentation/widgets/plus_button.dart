@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:weather_app/design_system/app_colors.dart';
 
 class PlusButton extends StatelessWidget {
-  const PlusButton({super.key});
+  final Function() onPress;
+  const PlusButton({super.key, required this.onPress});
 
   @override
   Widget build(BuildContext context) {
@@ -71,7 +72,7 @@ class PlusButton extends StatelessWidget {
                 ),
               ),
               child: FloatingActionButton(
-                onPressed: () {},
+                onPressed: onPress,
                 child: const Icon(
                   Icons.add,
                   color: AppColors.solid1,

@@ -7,7 +7,7 @@ class AppColors {
   static const Color lightQuaternary = Color.fromRGBO(60, 60, 67, 0.18);
 
   static const Color darkPrimary = Color(0xFFFFFFFF);
-  static const Color darkSecondary = Color.fromRGBO(235, 235, 245, 0.60);
+  static const Color darkSecondary = Color(0XFFEBEBF5);
   static const Color darkTertiary = Color.fromRGBO(235, 235, 245, 0.30);
   static const Color darkQuaternary = Color.fromRGBO(235, 235, 245, 0.18);
 

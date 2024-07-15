@@ -1,8 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:weather_app/design_system/app_colors.dart';
+import 'package:weather_app/design_system/app_icons.dart';
+import 'package:weather_app/presentation/weather_widgets_page.dart';
+import 'package:weather_app/presentation/widgets/plus_button.dart';
 
-class TitlePage extends StatelessWidget {
+class TitlePage extends StatefulWidget {
   const TitlePage({super.key});
+
+  @override
+  State<TitlePage> createState() => _TitlePageState();
+}
+
+class _TitlePageState extends State<TitlePage> {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -15,14 +24,25 @@ class TitlePage extends StatelessWidget {
             ),
           ),
         ),
-        bottomNavigationBar: const CustomBottomNavigationBar(),
+        bottomNavigationBar: CustomBottomNavigationBar(
+          onPress: () {},
+        ),
       ),
     );
   }
 }
 
-class CustomBottomNavigationBar extends StatelessWidget {
-  const CustomBottomNavigationBar({super.key});
+class CustomBottomNavigationBar extends StatefulWidget {
+  final Function() onPress;
+  const CustomBottomNavigationBar({super.key, required this.onPress});
+
+  @override
+  State<CustomBottomNavigationBar> createState() =>
+      _CustomBottomNavigationBarState();
+}
+
+class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar> {
+  bool isPressed = false;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -36,9 +56,47 @@ class CustomBottomNavigationBar extends StatelessWidget {
           ],
         ),
       ),
-      child: CustomPaint(
-        size: const Size(double.infinity, 100),
-        painter: BottomNavBarPainter(),
+      child: Stack(
+        children: [
+          CustomPaint(
+            size: const Size(double.infinity, 100),
+            painter: BottomNavBarPainter(),
+          ),
+          Positioned(
+            top: (100 - 64) / 2,
+            width: MediaQuery.of(context).size.width,
+            child: PlusButton(
+              onPress: () {},
+            ),
+          ),
+          Positioned(
+            left: 32,
+            top: 32,
+            child: GestureDetector(
+              onTap: () {
+                setState(() {
+                  isPressed = !isPressed;
+                });
+                widget.onPress;
+              },
+              child: isPressed ? AppIcons.navigationOn : AppIcons.navigationOff,
+            ),
+          ),
+          Positioned(
+            right: 32,
+            top: 32,
+            child: GestureDetector(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const WeatherWidgetsPage(),
+                    ),
+                  );
+                },
+                child: AppIcons.list),
+          ),
+        ],
       ),
     );
   }
