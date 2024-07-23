@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:weather_app/design_system/app_colors.dart';
 import 'package:weather_app/design_system/app_icons.dart';
+import 'package:weather_app/design_system/app_styles.dart';
 import 'package:weather_app/presentation/weather_widgets_page.dart';
 import 'package:weather_app/presentation/widgets/plus_button.dart';
 
@@ -22,6 +23,51 @@ class _TitlePageState extends State<TitlePage> {
               image: AssetImage('assets/back.png'),
               fit: BoxFit.cover,
             ),
+          ),
+          child: Column(
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(top: 98),
+                child: Center(
+                  child: Column(
+                    children: [
+                      const Text(
+                        'Montreal',
+                        style: AppStyles.regularLargeTitle,
+                      ),
+                      const SizedBox(
+                        height: 12,
+                      ),
+                      const Text(
+                        '19°',
+                        style: TextStyle(
+                            height: 0.8,
+                            fontSize: 96,
+                            fontWeight: FontWeight.w200,
+                            color: AppColors.darkPrimary),
+                      ),
+                      const SizedBox(
+                        height: 12,
+                      ),
+                      Text(
+                        'Mostly Clear',
+                        style: AppStyles.boldTitle2.copyWith(
+                          color: AppColors.darkSecondary.withOpacity(0.6),
+                        ),
+                      ),
+                      const Text(
+                        'H:24° L:18°',
+                        style: AppStyles.boldTitle2,
+                      ),
+                      const SizedBox(
+                        height: 23,
+                      ),
+                      Image.asset('assets/House4_3.png')
+                    ],
+                  ),
+                ),
+              )
+            ],
           ),
         ),
         bottomNavigationBar: CustomBottomNavigationBar(

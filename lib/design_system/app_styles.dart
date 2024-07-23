@@ -91,9 +91,9 @@ class AppStyles {
   static const regularLargeTitle = TextStyle(
     fontFamily: 'SF Pro Display',
     fontSize: 34,
-    height: 2.5625,
+    // height: 2.5625,
     fontWeight: FontWeight.w400,
-    letterSpacing: 0.374,
+    //letterSpacing: 0.374,
     color: AppColors.darkPrimary,
   );
   static const boldCaption2 = TextStyle(
@@ -161,10 +161,10 @@ class AppStyles {
   );
   static const boldTitle2 = TextStyle(
     fontFamily: 'SF Pro Display',
-    height: 1.5,
+    //height: 1.5,
     fontSize: 20,
     fontWeight: FontWeight.w600,
-    letterSpacing: 0.38,
+    // letterSpacing: 0.38,
     color: AppColors.darkPrimary,
   );
   static const boldTitle1 = TextStyle(

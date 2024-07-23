@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:weather_app/constants.dart';
 import 'package:weather_app/design_system/app_colors.dart';
@@ -34,86 +36,101 @@ class WeatherWidgetsPage extends StatelessWidget {
                   SliverPersistentHeader(
                     pinned: true,
                     delegate: _SliverAppBarDelegate(
-                      child: Container(
-                        color: Colors.transparent,
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 16),
-                          child: Column(
-                            children: [
-                              Row(
-                                children: [
-                                  GestureDetector(
-                                    onTap: () {
-                                      Navigator.of(context).pop();
-                                    },
-                                    child: Icon(
-                                      Icons.arrow_back_ios,
-                                      size: 23,
-                                      color: AppColors.darkSecondary
-                                          .withOpacity(0.6),
-                                    ),
-                                  ),
-                                  const SizedBox(width: 5),
-                                  const Expanded(
-                                    child: Text(
-                                      'Weather',
-                                      style: AppStyles.regularTitle1,
-                                    ),
-                                  ),
-                                  AppIcons.appBarHouse,
-                                ],
-                              ),
-                              const SizedBox(height: 17),
-                              Container(
-                                width: double.infinity,
-                                height: 36,
-                                decoration: BoxDecoration(
-                                  gradient: LinearGradient(
-                                    begin: Alignment.topLeft,
-                                    end: Alignment.bottomRight,
-                                    colors: [
-                                      const Color(0xFF2E335A).withOpacity(0.26),
-                                      const Color(0xFF1C1B33).withOpacity(0.2),
-                                    ],
-                                    stops: const [0.0162, 0.9572],
-                                    transform: const GradientRotation(
-                                        168 * 3.14159 / 180),
-                                  ),
-                                  boxShadow: [
-                                    BoxShadow(
-                                      color: Colors.black.withOpacity(0.25),
-                                      offset: const Offset(0, 4),
-                                      blurRadius: 4,
-                                      spreadRadius: 0,
-                                    ),
-                                  ],
-                                ),
-                                child: Center(
-                                  child: TextFormField(
-                                    style: AppStyles.regularBody.copyWith(
-                                      color: AppColors.darkSecondary
-                                          .withOpacity(0.6),
-                                    ),
-                                    decoration: InputDecoration(
-                                      border: InputBorder.none,
-                                      hintText: 'Search for a city or airport',
-                                      hintStyle: AppStyles.regularBody.copyWith(
-                                        color: AppColors.darkSecondary
-                                            .withOpacity(0.6),
-                                      ),
-                                      prefixIcon: Icon(
-                                        Icons.search,
-                                        color: AppColors.darkSecondary
-                                            .withOpacity(0.6),
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ],
+                      child: Stack(children: [
+                        ClipRect(
+                          child: BackdropFilter(
+                            filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
+                            child: const SizedBox(
+                              width: double.infinity,
+                              height: 120,
+                            ),
                           ),
                         ),
-                      ),
+                        Container(
+                          color: Colors.transparent,
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 16),
+                            child: Column(
+                              children: [
+                                Row(
+                                  children: [
+                                    GestureDetector(
+                                      onTap: () {
+                                        Navigator.of(context).pop();
+                                      },
+                                      child: Icon(
+                                        Icons.arrow_back_ios,
+                                        size: 23,
+                                        color: AppColors.darkSecondary
+                                            .withOpacity(0.6),
+                                      ),
+                                    ),
+                                    const SizedBox(width: 5),
+                                    const Expanded(
+                                      child: Text(
+                                        'Weather',
+                                        style: AppStyles.regularTitle1,
+                                      ),
+                                    ),
+                                    AppIcons.appBarHouse,
+                                  ],
+                                ),
+                                const SizedBox(height: 17),
+                                Container(
+                                  width: double.infinity,
+                                  height: 36,
+                                  decoration: BoxDecoration(
+                                    gradient: LinearGradient(
+                                      begin: Alignment.topLeft,
+                                      end: Alignment.bottomRight,
+                                      colors: [
+                                        const Color(0xFF2E335A)
+                                            .withOpacity(0.26),
+                                        const Color(0xFF1C1B33)
+                                            .withOpacity(0.2),
+                                      ],
+                                      stops: const [0.0162, 0.9572],
+                                      transform: const GradientRotation(
+                                          168 * 3.14159 / 180),
+                                    ),
+                                    boxShadow: [
+                                      BoxShadow(
+                                        color: Colors.black.withOpacity(0.25),
+                                        offset: const Offset(0, 4),
+                                        blurRadius: 4,
+                                        spreadRadius: 0,
+                                      ),
+                                    ],
+                                  ),
+                                  child: Center(
+                                    child: TextFormField(
+                                      style: AppStyles.regularBody.copyWith(
+                                        color: AppColors.darkSecondary
+                                            .withOpacity(0.6),
+                                      ),
+                                      decoration: InputDecoration(
+                                        border: InputBorder.none,
+                                        hintText:
+                                            'Search for a city or airport',
+                                        hintStyle:
+                                            AppStyles.regularBody.copyWith(
+                                          color: AppColors.darkSecondary
+                                              .withOpacity(0.6),
+                                        ),
+                                        prefixIcon: Icon(
+                                          Icons.search,
+                                          color: AppColors.darkSecondary
+                                              .withOpacity(0.6),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ]),
                     ),
                   ),
                   SliverList(
