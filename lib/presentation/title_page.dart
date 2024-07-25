@@ -27,83 +27,47 @@ class _TitlePageState extends State<TitlePage> {
                 fit: BoxFit.cover,
               ),
             ),
-            child: Stack(
+            child: Column(
               children: [
-                Column(
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.only(top: 98),
-                      child: Center(
-                        child: Column(
-                          children: [
-                            const Text(
-                              'Montreal',
-                              style: AppStyles.regularLargeTitle,
-                            ),
-                            const SizedBox(
-                              height: 12,
-                            ),
-                            const Text(
-                              '19°',
-                              style: TextStyle(
-                                  height: 0.8,
-                                  fontSize: 96,
-                                  fontWeight: FontWeight.w200,
-                                  color: AppColors.darkPrimary),
-                            ),
-                            const SizedBox(
-                              height: 12,
-                            ),
-                            Text(
-                              'Mostly Clear',
-                              style: AppStyles.boldTitle2.copyWith(
-                                color: AppColors.darkSecondary.withOpacity(0.6),
-                              ),
-                            ),
-                            const Text(
-                              'H:24° L:18°',
-                              style: AppStyles.boldTitle2,
-                            ),
-                            const SizedBox(
-                              height: 23,
-                            ),
-                            Image.asset(
-                              'assets/House4_3.png',
-                              height: 390,
-                            ),
-                          ],
+                Padding(
+                  padding: const EdgeInsets.only(top: 98),
+                  child: Center(
+                    child: Column(
+                      children: [
+                        const Text(
+                          'Montreal',
+                          style: AppStyles.regularLargeTitle,
                         ),
-                      ),
-                    ),
-                  ],
-                ),
-                Positioned(
-                  left: 0,
-                  right: 0,
-                  bottom: 0,
-                  child: Container(
-                    height: 225,
-                    decoration: BoxDecoration(
-                      gradient: LinearGradient(
-                        begin: Alignment.topLeft,
-                        end: Alignment.bottomRight,
-                        stops: [-0.0468, 0.9545],
-                        colors: [
-                          Color(0xFF2E335A).withOpacity(0.7),
-                          Color(0xFF1C1B33).withOpacity(0.7),
-                        ],
-                        transform: GradientRotation(168 * 3.1415927 / 180),
-                      ),
-                      border: Border.all(
-                        color: Color(0xFF000000),
-                        width: 1.0,
-                      ),
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.white.withOpacity(0.5),
-                          offset: Offset(0, 1),
-                          blurRadius: 0,
-                          spreadRadius: 0,
+                        const SizedBox(
+                          height: 12,
+                        ),
+                        const Text(
+                          '19°',
+                          style: TextStyle(
+                              height: 0.8,
+                              fontSize: 96,
+                              fontWeight: FontWeight.w200,
+                              color: AppColors.darkPrimary),
+                        ),
+                        const SizedBox(
+                          height: 12,
+                        ),
+                        Text(
+                          'Mostly Clear',
+                          style: AppStyles.boldTitle2.copyWith(
+                            color: AppColors.darkSecondary.withOpacity(0.6),
+                          ),
+                        ),
+                        const Text(
+                          'H:24° L:18°',
+                          style: AppStyles.boldTitle2,
+                        ),
+                        const SizedBox(
+                          height: 23,
+                        ),
+                        Image.asset(
+                          'assets/House4_3.png',
+                          height: 390,
                         ),
                       ],
                     ),
@@ -114,6 +78,10 @@ class _TitlePageState extends State<TitlePage> {
           ),
         ),
         bottomNavigationBar: const CustomBottomNavigationBar(),
+        bottomSheet: Container(
+          height: 200,
+          color: Colors.transparent,
+        ),
       ),
     );
   }
@@ -282,3 +250,30 @@ class BottomNavBarPainter extends CustomPainter {
     return false;
   }
 }
+// Container(
+//                     height: 225,
+//                     decoration: BoxDecoration(
+//                       gradient: LinearGradient(
+//                         begin: Alignment.topLeft,
+//                         end: Alignment.bottomRight,
+//                         stops: [-0.0468, 0.9545],
+//                         colors: [
+//                           Color(0xFF2E335A).withOpacity(0.7),
+//                           Color(0xFF1C1B33).withOpacity(0.7),
+//                         ],
+//                         transform: GradientRotation(168 * 3.1415927 / 180),
+//                       ),
+//                       border: Border.all(
+//                         color: Color(0xFF000000),
+//                         width: 1.0,
+//                       ),
+//                       boxShadow: [
+//                         BoxShadow(
+//                           color: Colors.white.withOpacity(0.5),
+//                           offset: Offset(0, 1),
+//                           blurRadius: 0,
+//                           spreadRadius: 0,
+//                         ),
+//                       ],
+//                     ),
+//                   ),
