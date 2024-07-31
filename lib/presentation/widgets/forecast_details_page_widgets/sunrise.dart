@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:weather_app/design_system/app_colors.dart';
 import 'package:weather_app/design_system/app_styles.dart';
-import 'package:weather_app/presentation/widgets/weathe_details_page_widgets/weather_details_container.dart';
+import 'package:weather_app/presentation/widgets/forecast_details_page_widgets/forecast_details_container.dart';
 
 class SunRise extends StatelessWidget {
   const SunRise({super.key});

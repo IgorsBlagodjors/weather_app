@@ -1,3 +1,106 @@
+List<Map<String, dynamic>> testListIsNow = [
+  {
+    'isNow': false,
+    'hour': '12 AM',
+    'degree': 19,
+    'label': 30,
+    'weatherIcon': 'assets/Moon_cloud_mid_rain32x32.png',
+  },
+  {
+    'isNow': true,
+    'hour': 'Now',
+    'degree': 19,
+    'label': null,
+    'weatherIcon': 'assets/Moon_cloud_mid_rain32x32.png',
+  },
+  {
+    'isNow': false,
+    'hour': '2 AM',
+    'degree': 18,
+    'label': null,
+    'weatherIcon': 'assets/Moon_cloud_fast_wind32x32.png',
+  },
+  {
+    'isNow': false,
+    'hour': '3 AM',
+    'degree': 19,
+    'label': null,
+    'weatherIcon': 'assets/Moon_cloud_mid_rain32x32.png',
+  },
+  {
+    'isNow': false,
+    'hour': '4 AM',
+    'degree': 19,
+    'label': null,
+    'weatherIcon': 'assets/Moon_cloud_mid_rain32x32.png',
+  },
+  {
+    'isNow': false,
+    'hour': '4 AM',
+    'degree': 19,
+    'label': null,
+    'weatherIcon': 'assets/Sun_cloud_angled_rain32x32.png',
+  },
+  {
+    'isNow': false,
+    'hour': '4 AM',
+    'degree': 19,
+    'label': null,
+    'weatherIcon': 'assets/Tornado32x32.png',
+  },
+];
+List<Map<String, dynamic>> testListWeekly = [
+  {
+    'isNow': false,
+    'hour': 'MON',
+    'degree': 20,
+    'label': 30,
+    'weatherIcon': 'assets/Sun_cloud_mid_rain32x32.png',
+  },
+  {
+    'isNow': true,
+    'hour': 'TUE',
+    'degree': 21,
+    'label': null,
+    'weatherIcon': 'assets/Sun_cloud_mid_rain32x32.png',
+  },
+  {
+    'isNow': false,
+    'hour': 'WENS',
+    'degree': 18,
+    'label': 100,
+    'weatherIcon': 'assets/Sun_cloud_angled_rain32x32.png',
+  },
+  {
+    'isNow': false,
+    'hour': 'THU',
+    'degree': 20,
+    'label': 50,
+    'weatherIcon': 'assets/Sun_cloud_angled_rain32x32.png',
+  },
+  {
+    'isNow': false,
+    'hour': 'FRI',
+    'degree': 22,
+    'label': null,
+    'weatherIcon': 'assets/Sun_cloud_mid_rain32x32.png',
+  },
+  {
+    'isNow': false,
+    'hour': 'SAT',
+    'degree': 19,
+    'label': 50,
+    'weatherIcon': 'assets/Tornado32x32.png',
+  },
+  {
+    'isNow': false,
+    'hour': 'SUN',
+    'degree': 19,
+    'label': null,
+    'weatherIcon': 'assets/Tornado32x32.png',
+  },
+];
+
 List<Map<String, dynamic>> weatherList = [
   {
     'image': 'assets/Moon_cloud_mid_rain.png',

@@ -124,7 +124,7 @@ class AppStyles {
     fontFamily: 'SF Pro Text',
     fontWeight: FontWeight.w600,
     letterSpacing: -0.5,
-    //height: 1.3333,
+    height: 1.3333,
     color: AppColors.darkPrimary,
   );
   static const boldCallout = TextStyle(

@@ -64,7 +64,7 @@ class HourlyForecastContainer extends StatelessWidget {
                 ),
                 Container(
                   width: 44,
-                  height: 38,
+                  height: 36,
                   color: isNow
                       ? AppColors.solid1
                       : AppColors.solid1.withOpacity(0.2),
