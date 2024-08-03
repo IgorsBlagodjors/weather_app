@@ -12,6 +12,7 @@ class HourlyAndWeeklyCont extends StatefulWidget {
   final List<Map<String, dynamic>> hourlyList;
   final List<Map<String, dynamic>> weeklyList;
   final bool isBorder;
+  final bool? isEllipses;
   final Widget? additionalChild;
   final double containerHeight;
   const HourlyAndWeeklyCont({
@@ -20,6 +21,7 @@ class HourlyAndWeeklyCont extends StatefulWidget {
     required this.weeklyList,
     required this.containerHeight,
     required this.isBorder,
+    this.isEllipses,
     this.additionalChild,
   });
 
@@ -29,8 +31,10 @@ class HourlyAndWeeklyCont extends StatefulWidget {
 
 class _HourlyAndWeeklyContState extends State<HourlyAndWeeklyCont> {
   bool isHourlySelected = true;
+
   @override
   Widget build(BuildContext context) {
+    bool showEllipses = widget.isEllipses ?? true;
     return ClipRRect(
       child: BackdropFilter(
         filter: ImageFilter.blur(sigmaX: 25.0, sigmaY: 25.0),
@@ -65,18 +69,23 @@ class _HourlyAndWeeklyContState extends State<HourlyAndWeeklyCont> {
                 top: -33,
                 left: 0,
                 right: 0,
-                child: Align(
-                  alignment: Alignment.topCenter,
-                  child: AppEllipses.ellipse2,
-                ),
+                child: showEllipses
+                    ? Align(
+                        alignment: Alignment.topCenter,
+                        child: AppEllipses.ellipse2,
+                      )
+                    : const SizedBox.shrink(),
               ),
               Positioned(
                 top: -10,
                 left: 0,
                 right: 0,
-                child: Align(
-                    alignment: Alignment.topCenter,
-                    child: AppEllipses.ellipse3),
+                child: showEllipses
+                    ? Align(
+                        alignment: Alignment.topCenter,
+                        child: AppEllipses.ellipse3,
+                      )
+                    : const SizedBox.shrink(),
               ),
               Positioned(
                 top: 0,
@@ -87,14 +96,16 @@ class _HourlyAndWeeklyContState extends State<HourlyAndWeeklyCont> {
                     const SizedBox(
                       height: 9,
                     ),
-                    Container(
-                      height: 5,
-                      width: 48,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(5),
-                        color: AppColors.lightPrimary.withOpacity(0.5),
-                      ),
-                    ),
+                    showEllipses
+                        ? Container(
+                            height: 5,
+                            width: 48,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(5),
+                              color: AppColors.lightPrimary.withOpacity(0.5),
+                            ),
+                          )
+                        : const SizedBox.shrink(),
                     const SizedBox(
                       height: 10,
                     ),

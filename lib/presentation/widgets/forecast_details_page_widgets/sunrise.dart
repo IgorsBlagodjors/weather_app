@@ -59,7 +59,7 @@ class SunRise extends StatelessWidget {
           Container(
             width: double.infinity,
             height: 46,
-            color: const Color(0xFF282554),
+            color: const Color(0xFF282554).withOpacity(0.26),
             child: CustomPaint(
               size: const Size(double.infinity, 50),
               painter: SunPainter(),
@@ -88,7 +88,9 @@ class SunPainter extends CustomPainter {
       ],
       begin: Alignment.topCenter,
       end: Alignment.bottomCenter,
-    ).createShader(Rect.fromLTWH(0, 0, size.width, size.height / 2));
+    ).createShader(
+      Rect.fromLTWH(0, 0, size.width, size.height / 2),
+    );
 
     final paintTopLine = Paint()
       ..strokeCap = StrokeCap.butt

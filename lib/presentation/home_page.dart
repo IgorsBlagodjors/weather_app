@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:weather_app/constants.dart';
 import 'package:weather_app/design_system/app_colors.dart';
 import 'package:weather_app/design_system/app_styles.dart';
-import 'package:weather_app/presentation/forecast_details_page.dart';
 import 'package:weather_app/presentation/widgets/home_page_widgets/custom_bottom_nav_bar.dart';
 import 'package:weather_app/presentation/widgets/home_page_widgets/hour_and_week_cont.dart';
 
@@ -31,58 +30,48 @@ class _TitlePageState extends State<TitlePage> {
               Padding(
                 padding: const EdgeInsets.only(top: 98),
                 child: Center(
-                  child: GestureDetector(
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => const WeatherDetailsPage(),
-                        ),
-                      );
-                    },
-                    child: Column(
-                      children: [
-                        Column(
-                          children: [
-                            const Text(
-                              'Montreal',
-                              style: AppStyles.regularLargeTitle,
+                  child: Column(
+                    children: [
+                      Column(
+                        children: [
+                          const Text(
+                            'Montreal',
+                            style: AppStyles.regularLargeTitle,
+                          ),
+                          const SizedBox(
+                            height: 12,
+                          ),
+                          const Text(
+                            '19°',
+                            style: TextStyle(
+                                height: 0.8,
+                                fontSize: 96,
+                                fontWeight: FontWeight.w200,
+                                color: AppColors.darkPrimary),
+                          ),
+                          const SizedBox(
+                            height: 12,
+                          ),
+                          Text(
+                            'Mostly Clear',
+                            style: AppStyles.boldTitle2.copyWith(
+                              color: AppColors.darkSecondary.withOpacity(0.6),
                             ),
-                            const SizedBox(
-                              height: 12,
-                            ),
-                            const Text(
-                              '19°',
-                              style: TextStyle(
-                                  height: 0.8,
-                                  fontSize: 96,
-                                  fontWeight: FontWeight.w200,
-                                  color: AppColors.darkPrimary),
-                            ),
-                            const SizedBox(
-                              height: 12,
-                            ),
-                            Text(
-                              'Mostly Clear',
-                              style: AppStyles.boldTitle2.copyWith(
-                                color: AppColors.darkSecondary.withOpacity(0.6),
-                              ),
-                            ),
-                            const Text(
-                              'H:24° L:18°',
-                              style: AppStyles.boldTitle2,
-                            ),
-                          ],
-                        ),
-                        const SizedBox(
-                          height: 23,
-                        ),
-                        Image.asset(
-                          'assets/House4_3.png',
-                          height: 390,
-                        ),
-                      ],
-                    ),
+                          ),
+                          const Text(
+                            'H:24° L:18°',
+                            style: AppStyles.boldTitle2,
+                          ),
+                        ],
+                      ),
+                      const SizedBox(
+                        height: 23,
+                      ),
+                      Image.asset(
+                        'assets/House4_3.png',
+                        height: 390,
+                      ),
+                    ],
                   ),
                 ),
               ),
@@ -118,6 +107,7 @@ class _TitlePageState extends State<TitlePage> {
                   weeklyList: testListWeekly,
                   containerHeight: 325,
                   isBorder: true,
+                  isEllipses: true,
                 ),
               ),
               const Positioned(

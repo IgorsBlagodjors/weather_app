@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:weather_app/design_system/app_colors.dart';
 import 'package:weather_app/design_system/app_icons.dart';
+import 'package:weather_app/presentation/forecast_details_page.dart';
 import 'package:weather_app/presentation/weather_widgets_page.dart';
 import 'package:weather_app/presentation/widgets/home_page_widgets/plus_button.dart';
 
@@ -37,7 +38,14 @@ class _CustomBottomNavBarState extends State<CustomBottomNavBar> {
             bottom: 24,
             width: MediaQuery.of(context).size.width,
             child: PlusButton(
-              onPress: () {},
+              onPress: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const WeatherDetailsPage(),
+                  ),
+                );
+              },
             ),
           ),
           Positioned(

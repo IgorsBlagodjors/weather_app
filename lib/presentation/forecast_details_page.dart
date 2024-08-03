@@ -9,6 +9,7 @@ import 'package:weather_app/presentation/widgets/forecast_details_page_widgets/p
 import 'package:weather_app/presentation/widgets/forecast_details_page_widgets/sunrise.dart';
 import 'package:weather_app/presentation/widgets/forecast_details_page_widgets/uv_index.dart';
 import 'package:weather_app/presentation/widgets/forecast_details_page_widgets/wind.dart';
+import 'package:weather_app/presentation/widgets/home_page_widgets/elipses.dart';
 import 'package:weather_app/presentation/widgets/home_page_widgets/hour_and_week_cont.dart';
 
 class WeatherDetailsPage extends StatefulWidget {
@@ -61,25 +62,29 @@ class _WeatherDetailsPageState extends State<WeatherDetailsPage> {
                       onTap: () {
                         Navigator.pop(context);
                       },
-                      child: Column(
-                        children: [
-                          const SizedBox(
-                            height: 4,
-                          ),
-                          const Text(
-                            'Montreal',
-                            style: AppStyles.regularLargeTitle,
-                          ),
-                          Text(
-                            '19°| Mostly Clear',
-                            style: AppStyles.boldTitle2.copyWith(
-                              color: const Color(0xFFebebf5).withOpacity(0.6),
+                      child: Container(
+                        width: double.infinity,
+                        color: const Color(0xFF2E335A),
+                        child: Column(
+                          children: [
+                            const SizedBox(
+                              height: 4,
                             ),
-                          ),
-                          const SizedBox(
-                            height: 28,
-                          )
-                        ],
+                            const Text(
+                              'Montreal',
+                              style: AppStyles.regularLargeTitle,
+                            ),
+                            Text(
+                              '19°| Mostly Clear',
+                              style: AppStyles.boldTitle2.copyWith(
+                                color: const Color(0xFFebebf5).withOpacity(0.6),
+                              ),
+                            ),
+                            const SizedBox(
+                              height: 28,
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                   ),
@@ -91,6 +96,7 @@ class _WeatherDetailsPageState extends State<WeatherDetailsPage> {
                         hourlyList: testListIsNow,
                         weeklyList: testListWeekly,
                         isBorder: false,
+                        isEllipses: false,
                         containerHeight: 1150,
                         additionalChild: const Column(
                           children: [
@@ -180,7 +186,52 @@ class _WeatherDetailsPageState extends State<WeatherDetailsPage> {
                   ),
                 ),
               ],
-            )
+            ),
+            Positioned(
+              top: 110,
+              left: 0,
+              right: 0,
+              child: Stack(
+                children: [
+                  Container(
+                    height: 100,
+                  ),
+                  Positioned(
+                    top: -10,
+                    left: 0,
+                    right: 0,
+                    child: Align(
+                      alignment: Alignment.topCenter,
+                      child: AppEllipses.ellipse3,
+                    ),
+                  ),
+                  Positioned(
+                    top: -33,
+                    left: 0,
+                    right: 0,
+                    child: Align(
+                      alignment: Alignment.topCenter,
+                      child: AppEllipses.ellipse2,
+                    ),
+                  ),
+                  Positioned(
+                    top: 9,
+                    left: 0,
+                    right: 0,
+                    child: Center(
+                      child: Container(
+                        height: 5,
+                        width: 48,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(5),
+                          color: AppColors.lightPrimary.withOpacity(0.5),
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
           ],
         ),
       ),
@@ -198,10 +249,10 @@ class _SliverContentDelegate extends SliverPersistentHeaderDelegate {
   }
 
   @override
-  double get maxExtent => 120.0;
+  double get maxExtent => 110.0;
 
   @override
-  double get minExtent => 120.0;
+  double get minExtent => 110.0;
 
   @override
   bool shouldRebuild(covariant SliverPersistentHeaderDelegate oldDelegate) {

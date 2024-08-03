@@ -127,7 +127,7 @@ class _TestPageState extends State<TestPage> {
               ),
             ),
           ),
-          HourlyForecastContainer(
+          const HourlyForecastContainer(
             isNow: false,
             hour: '12 AM',
             degree: 19,

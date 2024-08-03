@@ -74,7 +74,21 @@ class WeatherWidgetsPage extends StatelessWidget {
                                           style: AppStyles.regularTitle1,
                                         ),
                                       ),
-                                      AppIcons.appBarHouse,
+                                      Builder(
+                                        builder: (context) => GestureDetector(
+                                          onTap: () {
+                                            //TODO": made AppBarHouseIcon activity
+                                            ScaffoldMessenger.of(context)
+                                                .showSnackBar(
+                                              const SnackBar(
+                                                content:
+                                                    Text('Under Construction'),
+                                              ),
+                                            );
+                                          },
+                                          child: AppIcons.appBarHouse,
+                                        ),
+                                      ),
                                     ],
                                   ),
                                   const SizedBox(height: 17),
