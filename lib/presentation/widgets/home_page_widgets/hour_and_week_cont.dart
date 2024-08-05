@@ -3,10 +3,11 @@ import 'dart:ui';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:weather_app/constants.dart';
 import 'package:weather_app/design_system/app_colors.dart';
 import 'package:weather_app/design_system/app_styles.dart';
-import 'package:weather_app/presentation/widgets/app_containers.dart';
 import 'package:weather_app/presentation/widgets/home_page_widgets/elipses.dart';
+import 'package:weather_app/presentation/widgets/home_page_widgets/hourly_forecast_container.dart';
 
 class HourlyAndWeeklyCont extends StatefulWidget {
   final List<Map<String, dynamic>> hourlyList;
@@ -31,10 +32,15 @@ class HourlyAndWeeklyCont extends StatefulWidget {
 
 class _HourlyAndWeeklyContState extends State<HourlyAndWeeklyCont> {
   bool isHourlySelected = true;
+  final ScrollController _scrollController = ScrollController();
 
   @override
   Widget build(BuildContext context) {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _centerItem(getActiveTimeIndex() + 1);
+    });
     bool showEllipses = widget.isEllipses ?? true;
+
     return ClipRRect(
       child: BackdropFilter(
         filter: ImageFilter.blur(sigmaX: 25.0, sigmaY: 25.0),
@@ -194,11 +200,9 @@ class _HourlyAndWeeklyContState extends State<HourlyAndWeeklyCont> {
                         height: 146,
                         child: ListView.separated(
                           scrollDirection: Axis.horizontal,
+                          controller: _scrollController,
                           itemBuilder: (context, index) =>
                               HourlyForecastContainer(
-                            isNow: isHourlySelected
-                                ? widget.hourlyList[index]['isNow']
-                                : widget.weeklyList[index]['isNow'],
                             hour: isHourlySelected
                                 ? widget.hourlyList[index]['hour']
                                 : widget.weeklyList[index]['hour'],
@@ -231,6 +235,19 @@ class _HourlyAndWeeklyContState extends State<HourlyAndWeeklyCont> {
           ),
         ),
       ),
+    );
+  }
+
+  void _centerItem(int index) {
+    double itemWidth = 68.0;
+    double lwPadding = 20;
+    double screenWidth = MediaQuery.of(context).size.width;
+    double scrollOffset =
+        index * itemWidth - (screenWidth / 2) - ((itemWidth - lwPadding) / 2);
+    _scrollController.animateTo(
+      scrollOffset,
+      duration: const Duration(seconds: 1),
+      curve: Curves.easeInOut,
     );
   }
 }

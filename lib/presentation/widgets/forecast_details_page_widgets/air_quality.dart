@@ -58,14 +58,34 @@ class AirQuality extends StatelessWidget {
             const SizedBox(
               height: 7,
             ),
-            const Row(
+            Row(
               children: [
                 Expanded(
-                  child: Text('See more', style: AppStyles.regularBody),
+                  child: GestureDetector(
+                      onTap: () {
+                        //TODO": made AirQuality activity
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(
+                            content: Text('Under Construction'),
+                          ),
+                        );
+                      },
+                      child:
+                          const Text('See more', style: AppStyles.regularBody)),
                 ),
-                Icon(
-                  Icons.arrow_forward_ios,
-                  size: 15,
+                GestureDetector(
+                  onTap: () {
+                    //TODO": made AppBarHouseIcon activity
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(
+                        content: Text('Under Construction'),
+                      ),
+                    );
+                  },
+                  child: const Icon(
+                    Icons.arrow_forward_ios,
+                    size: 15,
+                  ),
                 )
               ],
             ),

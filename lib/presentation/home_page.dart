@@ -34,9 +34,14 @@ class _TitlePageState extends State<TitlePage> {
                     children: [
                       Column(
                         children: [
-                          const Text(
-                            'Montreal',
-                            style: AppStyles.regularLargeTitle,
+                          GestureDetector(
+                            onTap: () {
+                              setState(() {});
+                            },
+                            child: const Text(
+                              'Montreal',
+                              style: AppStyles.regularLargeTitle,
+                            ),
                           ),
                           const SizedBox(
                             height: 12,

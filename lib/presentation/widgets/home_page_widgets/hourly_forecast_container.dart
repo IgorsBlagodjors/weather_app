@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:weather_app/constants.dart';
 import 'package:weather_app/design_system/app_colors.dart';
 import 'package:weather_app/design_system/app_styles.dart';
 
 class HourlyForecastContainer extends StatelessWidget {
-  final bool isNow;
   final String hour;
   final int degree;
   final int? label;
   final String weatherIcon;
+
   const HourlyForecastContainer({
     super.key,
-    required this.isNow,
     required this.hour,
     required this.degree,
     required this.label,
@@ -19,18 +19,20 @@ class HourlyForecastContainer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    bool activated = hour == getTime() || hour == getDay();
+
     return Container(
       height: 146,
       width: 60,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(30),
         border: Border.all(
-          color: isNow
+          color: activated
               ? AppColors.darkPrimary.withOpacity(0.50)
               : AppColors.darkPrimary.withOpacity(0.2),
           width: 1,
         ),
-        color: isNow ? AppColors.solid1 : AppColors.solid1.withOpacity(0.2),
+        color: activated ? AppColors.solid1 : AppColors.solid1.withOpacity(0.2),
         boxShadow: [
           BoxShadow(
             color: AppColors.darkPrimary.withOpacity(0.25),
@@ -65,7 +67,7 @@ class HourlyForecastContainer extends StatelessWidget {
                 Container(
                   width: 44,
                   height: 36,
-                  color: isNow
+                  color: activated
                       ? AppColors.solid1
                       : AppColors.solid1.withOpacity(0.2),
                   child: Transform.translate(
