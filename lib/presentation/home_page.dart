@@ -1,31 +1,54 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:weather_app/constants.dart';
 import 'package:weather_app/design_system/app_colors.dart';
 import 'package:weather_app/design_system/app_styles.dart';
+import 'package:weather_app/presentation/bloc/weather_home_page_cubit.dart';
+import 'package:weather_app/presentation/bloc/weather_home_page_state.dart';
 import 'package:weather_app/presentation/widgets/home_page_widgets/custom_bottom_nav_bar.dart';
 import 'package:weather_app/presentation/widgets/home_page_widgets/hour_and_week_cont.dart';
 
-class TitlePage extends StatefulWidget {
-  const TitlePage({super.key});
+class HomePage extends StatefulWidget {
+  const HomePage({super.key});
 
   @override
-  State<TitlePage> createState() => _TitlePageState();
+  State<HomePage> createState() => _HomePageState();
+  static Widget withCubit() => BlocProvider(
+        create: (context) => WeatherHomePageCubit(
+          context.read(),
+        ),
+        child: const HomePage(),
+      );
 }
 
-class _TitlePageState extends State<TitlePage> {
+class _HomePageState extends State<HomePage> {
+  late final WeatherHomePageCubit _cubit;
+
   bool isHourlySelected = true;
+
+  @override
+  void initState() {
+    super.initState();
+    _cubit = context.read();
+    _cubit.fetchWeather();
+  }
+
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        body: Container(
-          decoration: const BoxDecoration(
-            image: DecorationImage(
-              image: AssetImage('assets/back.png'),
-              fit: BoxFit.cover,
-            ),
-          ),
-          child: Stack(
+    return BlocBuilder<WeatherHomePageCubit, WeatherHomePageState>(
+      builder: (context, state) {
+        Widget? child;
+        if (state.isLoading) {
+          child = const Center(
+            child: CircularProgressIndicator(),
+          );
+        } else if (state.isError) {
+          child = const Center(
+            child: Text('Failure error'),
+          );
+        } else {
+          final data = state.items;
+          child = Stack(
             children: [
               Padding(
                 padding: const EdgeInsets.only(top: 98),
@@ -109,7 +132,7 @@ class _TitlePageState extends State<TitlePage> {
                 bottom: 0,
                 child: HourlyAndWeeklyCont(
                   hourlyList: testListIsNow,
-                  weeklyList: testListWeekly,
+                  weeklyList: data,
                   containerHeight: 325,
                   isBorder: true,
                   isEllipses: true,
@@ -122,9 +145,22 @@ class _TitlePageState extends State<TitlePage> {
                 child: CustomBottomNavBar(),
               ),
             ],
+          );
+        }
+        return SafeArea(
+          child: Scaffold(
+            body: Container(
+              decoration: const BoxDecoration(
+                image: DecorationImage(
+                  image: AssetImage('assets/back.png'),
+                  fit: BoxFit.cover,
+                ),
+              ),
+              child: child,
+            ),
           ),
-        ),
-      ),
+        );
+      },
     );
   }
 }

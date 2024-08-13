@@ -94,7 +94,7 @@ class _WeatherDetailsPageState extends State<WeatherDetailsPage> {
                     children: [
                       HourlyAndWeeklyCont(
                         hourlyList: testListIsNow,
-                        weeklyList: testListWeekly,
+                        weeklyList: weatherList2,
                         isBorder: false,
                         isEllipses: false,
                         containerHeight: 1150,

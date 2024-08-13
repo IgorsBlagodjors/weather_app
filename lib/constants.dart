@@ -1,4 +1,9 @@
 import 'package:intl/intl.dart';
+import 'package:weather_app/domain/weather_daily_data_class.dart';
+
+List<WeatherDailyData> weatherList2 = [
+  const WeatherDailyData(date: '1 AM', temperature: 19, humidity: 11)
+];
 
 List<Map<String, dynamic>> testListIsNow = [
   {
@@ -250,22 +255,22 @@ String getDay() {
   return dayOfWeek.toUpperCase();
 }
 
-int getActiveTimeIndex() {
-  for (int i = 0; i < testListIsNow.length; i++) {
-    String hour = testListIsNow[i]['hour'];
-    if (hour == getTime()) {
-      return i;
-    }
-  }
-  return 0;
-}
+// int getActiveTimeIndex() {
+//   for (int i = 0; i < testListIsNow.length; i++) {
+//     String hour = testListIsNow[i]['hour'];
+//     if (hour == getTime()) {
+//       return i;
+//     }
+//   }
+//   return 0;
+// }
 
-int getActiveDayIndex() {
-  for (int i = 0; i < testListIsNow.length; i++) {
-    String hour = testListIsNow[i]['hour'];
-    if (hour == getDay()) {
-      return i;
-    }
-  }
-  return 0;
-}
+// int getActiveDayIndex() {
+//   for (int i = 0; i < testListIsNow.length; i++) {
+//     String hour = testListIsNow[i]['hour'];
+//     if (hour == getDay()) {
+//       return i;
+//     }
+//   }
+//   return 0;
+// }

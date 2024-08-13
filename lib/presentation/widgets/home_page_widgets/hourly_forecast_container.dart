@@ -5,8 +5,8 @@ import 'package:weather_app/design_system/app_styles.dart';
 
 class HourlyForecastContainer extends StatelessWidget {
   final String hour;
-  final int degree;
-  final int? label;
+  final double degree;
+  final double? label;
   final String weatherIcon;
 
   const HourlyForecastContainer({
@@ -60,6 +60,7 @@ class HourlyForecastContainer extends StatelessWidget {
                 Text(
                   hour,
                   style: AppStyles.boldSubheadline,
+                  overflow: TextOverflow.ellipsis,
                 ),
                 const SizedBox(
                   height: 16,
@@ -81,6 +82,7 @@ class HourlyForecastContainer extends StatelessWidget {
                               style: AppStyles.boldFootnote.copyWith(
                                 color: AppColors.labelColor,
                               ),
+                              overflow: TextOverflow.ellipsis,
                             )
                           : const SizedBox.shrink(),
                     ),
@@ -92,6 +94,7 @@ class HourlyForecastContainer extends StatelessWidget {
                 Text(
                   '$degree°',
                   style: AppStyles.boldTitle3,
+                  overflow: TextOverflow.ellipsis,
                 ),
               ],
             ),

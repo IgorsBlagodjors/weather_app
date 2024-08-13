@@ -3,15 +3,15 @@ import 'dart:ui';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:weather_app/constants.dart';
 import 'package:weather_app/design_system/app_colors.dart';
 import 'package:weather_app/design_system/app_styles.dart';
+import 'package:weather_app/domain/weather_daily_data_class.dart';
 import 'package:weather_app/presentation/widgets/home_page_widgets/elipses.dart';
 import 'package:weather_app/presentation/widgets/home_page_widgets/hourly_forecast_container.dart';
 
 class HourlyAndWeeklyCont extends StatefulWidget {
   final List<Map<String, dynamic>> hourlyList;
-  final List<Map<String, dynamic>> weeklyList;
+  final List<WeatherDailyData> weeklyList;
   final bool isBorder;
   final bool? isEllipses;
   final Widget? additionalChild;
@@ -36,9 +36,9 @@ class _HourlyAndWeeklyContState extends State<HourlyAndWeeklyCont> {
 
   @override
   Widget build(BuildContext context) {
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      _centerItem(getActiveTimeIndex() + 1);
-    });
+    // WidgetsBinding.instance.addPostFrameCallback((_) {
+    //   _centerItem(getActiveTimeIndex() + 1);
+    // });
     bool showEllipses = widget.isEllipses ?? true;
 
     return ClipRRect(
@@ -205,16 +205,14 @@ class _HourlyAndWeeklyContState extends State<HourlyAndWeeklyCont> {
                               HourlyForecastContainer(
                             hour: isHourlySelected
                                 ? widget.hourlyList[index]['hour']
-                                : widget.weeklyList[index]['hour'],
+                                : widget.weeklyList[index].date,
                             degree: isHourlySelected
                                 ? widget.hourlyList[index]['degree']
-                                : widget.weeklyList[index]['degree'],
+                                : widget.weeklyList[index].temperature,
                             label: isHourlySelected
                                 ? widget.hourlyList[index]['label']
-                                : widget.weeklyList[index]['label'],
-                            weatherIcon: isHourlySelected
-                                ? widget.hourlyList[index]['weatherIcon']
-                                : widget.weeklyList[index]['weatherIcon'],
+                                : widget.weeklyList[index].humidity,
+                            weatherIcon: 'assets/Moon_cloud_mid_rain32x32.png',
                           ),
                           separatorBuilder: (context, index) => const SizedBox(
                             width: 8,
