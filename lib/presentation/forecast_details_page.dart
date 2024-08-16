@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:weather_app/constants.dart';
 import 'package:weather_app/design_system/app_colors.dart';
 import 'package:weather_app/design_system/app_styles.dart';
 import 'package:weather_app/presentation/widgets/forecast_details_page_widgets/air_quality.dart';
@@ -89,12 +88,12 @@ class _WeatherDetailsPageState extends State<WeatherDetailsPage> {
                     ),
                   ),
                 ),
-                SliverToBoxAdapter(
+                const SliverToBoxAdapter(
                   child: Column(
                     children: [
                       HourlyAndWeeklyCont(
-                        hourlyList: testListIsNow,
-                        weeklyList: weatherList2,
+                        hourlyList: [],
+                        weeklyList: [],
                         isBorder: false,
                         isEllipses: false,
                         containerHeight: 1150,

@@ -1,9 +1,6 @@
+import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:weather_app/domain/weather_daily_data_class.dart';
-
-List<WeatherDailyData> weatherList2 = [
-  const WeatherDailyData(date: '1 AM', temperature: 19, humidity: 11)
-];
+import 'package:weather_app/domain/hourly_data_class.dart';
 
 List<Map<String, dynamic>> testListIsNow = [
   {
@@ -274,3 +271,53 @@ String getDay() {
 //   }
 //   return 0;
 // }
+
+String getWeekDays() {
+  DateTime today = DateTime.now();
+  DateTime startOfWeek = today.subtract(Duration(days: today.weekday - 1));
+  DateTime endOfWeek = startOfWeek.add(const Duration(days: 6));
+  String startWeekDate = startOfWeek.toString().split(' ')[0];
+  String endOfWeekDate = endOfWeek.toString().split(' ')[0];
+  return '$startWeekDate/$endOfWeekDate';
+}
+
+class CenterWiew {
+  static void centerItem({
+    required int index,
+    required ScrollController scrollController,
+    required BuildContext context,
+  }) {
+    double itemWidth = 68.0;
+    double lwPadding = 20;
+    double screenWidth = MediaQuery.of(context).size.width;
+    double scrollOffset =
+        index * itemWidth - (screenWidth / 2) - ((itemWidth - lwPadding) / 2);
+    scrollController.animateTo(
+      scrollOffset,
+      duration: const Duration(seconds: 1),
+      curve: Curves.easeInOut,
+    );
+  }
+
+  static int getActiveTimeIndex({
+    required List<HourlyData> hourlyList,
+  }) {
+    String currentTime = getCurrentTime();
+    for (int i = 0; i < hourlyList.length; i++) {
+      String hour = hourlyList[i].getTime;
+      if (hour == currentTime) {
+        return i;
+      }
+    }
+    return 0;
+  }
+
+  static String getCurrentTime() {
+    DateTime now = DateTime.now();
+    String formattedTime = DateFormat('hh a').format(now);
+    if (formattedTime.startsWith('0')) {
+      return formattedTime.substring(1);
+    }
+    return formattedTime;
+  }
+}

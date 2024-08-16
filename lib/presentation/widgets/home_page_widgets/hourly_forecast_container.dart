@@ -5,8 +5,8 @@ import 'package:weather_app/design_system/app_styles.dart';
 
 class HourlyForecastContainer extends StatelessWidget {
   final String hour;
-  final double degree;
-  final double? label;
+  final String degree;
+  final String? label;
   final String weatherIcon;
 
   const HourlyForecastContainer({

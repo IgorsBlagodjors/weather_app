@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:weather_app/constants.dart';
 import 'package:weather_app/design_system/app_colors.dart';
 import 'package:weather_app/design_system/app_styles.dart';
-import 'package:weather_app/presentation/bloc/weather_home_page_cubit.dart';
-import 'package:weather_app/presentation/bloc/weather_home_page_state.dart';
+import 'package:weather_app/presentation/bloc/home_page_cubit.dart';
+import 'package:weather_app/presentation/bloc/home_page_state.dart';
 import 'package:weather_app/presentation/widgets/home_page_widgets/custom_bottom_nav_bar.dart';
 import 'package:weather_app/presentation/widgets/home_page_widgets/hour_and_week_cont.dart';
 
@@ -14,7 +13,7 @@ class HomePage extends StatefulWidget {
   @override
   State<HomePage> createState() => _HomePageState();
   static Widget withCubit() => BlocProvider(
-        create: (context) => WeatherHomePageCubit(
+        create: (context) => HomePageCubit(
           context.read(),
         ),
         child: const HomePage(),
@@ -22,7 +21,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  late final WeatherHomePageCubit _cubit;
+  late final HomePageCubit _cubit;
 
   bool isHourlySelected = true;
 
@@ -35,7 +34,7 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<WeatherHomePageCubit, WeatherHomePageState>(
+    return BlocBuilder<HomePageCubit, HomePageState>(
       builder: (context, state) {
         Widget? child;
         if (state.isLoading) {
@@ -48,6 +47,8 @@ class _HomePageState extends State<HomePage> {
           );
         } else {
           final data = state.items;
+          final hourlyData = state.hourlyItems;
+
           child = Stack(
             children: [
               Padding(
@@ -56,22 +57,18 @@ class _HomePageState extends State<HomePage> {
                   child: Column(
                     children: [
                       Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
-                          GestureDetector(
-                            onTap: () {
-                              setState(() {});
-                            },
-                            child: const Text(
-                              'Montreal',
-                              style: AppStyles.regularLargeTitle,
-                            ),
+                          Text(
+                            hourlyData.first.getAddress,
+                            style: AppStyles.regularLargeTitle,
                           ),
                           const SizedBox(
                             height: 12,
                           ),
-                          const Text(
-                            '19°',
-                            style: TextStyle(
+                          Text(
+                            '${hourlyData.first.getTemp}°',
+                            style: const TextStyle(
                                 height: 0.8,
                                 fontSize: 96,
                                 fontWeight: FontWeight.w200,
@@ -81,13 +78,15 @@ class _HomePageState extends State<HomePage> {
                             height: 12,
                           ),
                           Text(
-                            'Mostly Clear',
+                            hourlyData.first.conditions,
+                            overflow: TextOverflow.ellipsis,
+                            maxLines: 1,
                             style: AppStyles.boldTitle2.copyWith(
                               color: AppColors.darkSecondary.withOpacity(0.6),
                             ),
                           ),
-                          const Text(
-                            'H:24° L:18°',
+                          Text(
+                            'H:${data.first.getTempMax}° L:${data.first.getTempMin}°',
                             style: AppStyles.boldTitle2,
                           ),
                         ],
@@ -131,7 +130,7 @@ class _HomePageState extends State<HomePage> {
                 right: 0,
                 bottom: 0,
                 child: HourlyAndWeeklyCont(
-                  hourlyList: testListIsNow,
+                  hourlyList: hourlyData,
                   weeklyList: data,
                   containerHeight: 325,
                   isBorder: true,

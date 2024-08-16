@@ -3,15 +3,18 @@ import 'dart:ui';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:intl/intl.dart';
+import 'package:weather_app/constants.dart';
 import 'package:weather_app/design_system/app_colors.dart';
 import 'package:weather_app/design_system/app_styles.dart';
-import 'package:weather_app/domain/weather_daily_data_class.dart';
+import 'package:weather_app/domain/daily_data_class.dart';
+import 'package:weather_app/domain/hourly_data_class.dart';
 import 'package:weather_app/presentation/widgets/home_page_widgets/elipses.dart';
 import 'package:weather_app/presentation/widgets/home_page_widgets/hourly_forecast_container.dart';
 
 class HourlyAndWeeklyCont extends StatefulWidget {
-  final List<Map<String, dynamic>> hourlyList;
-  final List<WeatherDailyData> weeklyList;
+  final List<HourlyData> hourlyList;
+  final List<DailyData> weeklyList;
   final bool isBorder;
   final bool? isEllipses;
   final Widget? additionalChild;
@@ -36,9 +39,15 @@ class _HourlyAndWeeklyContState extends State<HourlyAndWeeklyCont> {
 
   @override
   Widget build(BuildContext context) {
-    // WidgetsBinding.instance.addPostFrameCallback((_) {
-    //   _centerItem(getActiveTimeIndex() + 1);
-    // });
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      CenterWiew.centerItem(
+        index: CenterWiew.getActiveTimeIndex(
+          hourlyList: widget.hourlyList,
+        ),
+        scrollController: _scrollController,
+        context: context,
+      );
+    });
     bool showEllipses = widget.isEllipses ?? true;
 
     return ClipRRect(
@@ -204,14 +213,14 @@ class _HourlyAndWeeklyContState extends State<HourlyAndWeeklyCont> {
                           itemBuilder: (context, index) =>
                               HourlyForecastContainer(
                             hour: isHourlySelected
-                                ? widget.hourlyList[index]['hour']
-                                : widget.weeklyList[index].date,
+                                ? widget.hourlyList[index].getTime
+                                : widget.weeklyList[index].getDate,
                             degree: isHourlySelected
-                                ? widget.hourlyList[index]['degree']
-                                : widget.weeklyList[index].temperature,
+                                ? widget.hourlyList[index].getTemp
+                                : widget.weeklyList[index].getTemp,
                             label: isHourlySelected
-                                ? widget.hourlyList[index]['label']
-                                : widget.weeklyList[index].humidity,
+                                ? widget.hourlyList[index].getHumidity
+                                : widget.weeklyList[index].getHumidity,
                             weatherIcon: 'assets/Moon_cloud_mid_rain32x32.png',
                           ),
                           separatorBuilder: (context, index) => const SizedBox(
@@ -247,5 +256,24 @@ class _HourlyAndWeeklyContState extends State<HourlyAndWeeklyCont> {
       duration: const Duration(seconds: 1),
       curve: Curves.easeInOut,
     );
+  }
+
+  int getActiveTimeIndex() {
+    for (int i = 0; i < widget.hourlyList.length; i++) {
+      String hour = widget.hourlyList[i].getTime;
+      if (hour == getCurrentTime()) {
+        return i;
+      }
+    }
+    return 0;
+  }
+
+  String getCurrentTime() {
+    DateTime now = DateTime.now();
+    String formattedTime = DateFormat('hh a').format(now);
+    if (formattedTime.startsWith('0')) {
+      return formattedTime.substring(1);
+    }
+    return formattedTime;
   }
 }

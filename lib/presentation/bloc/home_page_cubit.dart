@@ -1,15 +1,16 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:logger/logger.dart';
 import 'package:weather_app/domain/weather_app_repository.dart';
-import 'package:weather_app/presentation/bloc/weather_home_page_state.dart';
+import 'package:weather_app/presentation/bloc/home_page_state.dart';
 
-class WeatherHomePageCubit extends Cubit<WeatherHomePageState> {
+class HomePageCubit extends Cubit<HomePageState> {
   final WeatherAppRepository _weatherAppRepository;
   final logger = Logger();
-  WeatherHomePageCubit(this._weatherAppRepository)
+  HomePageCubit(this._weatherAppRepository)
       : super(
-          const WeatherHomePageState(
+          const HomePageState(
             items: [],
+            hourlyItems: [],
             isLoading: false,
             isError: false,
           ),
@@ -18,8 +19,9 @@ class WeatherHomePageCubit extends Cubit<WeatherHomePageState> {
     emit(state.copyWith(isLoading: true));
     try {
       final items = await _weatherAppRepository.getDailyData();
-
-      emit(state.copyWith(items: items, isLoading: false));
+      final hourlyItems = await _weatherAppRepository.getHourlyData();
+      emit(state.copyWith(
+          items: items, hourlyItems: hourlyItems, isLoading: false));
     } on Exception catch (ex, stacktrace) {
       logger.e('Failed to load: ex $ex, stacktrace: $stacktrace');
       emit(state.copyWith(isError: true, isLoading: false));

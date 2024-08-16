@@ -1,8 +1,8 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:weather_app/data/weather_app_api_client.dart';
-import 'package:weather_app/data/weather_app_network_repository.dart';
+import 'package:weather_app/data/app_api_client.dart';
+import 'package:weather_app/data/network_repository.dart';
 import 'package:weather_app/domain/weather_app_repository.dart';
 import 'package:weather_app/presentation/home_page.dart';
 
@@ -22,9 +22,8 @@ void main() {
       request: true,
     ),
   );
-  final weatherApiClient = WeatherApiClient(dio);
-  final networkWeatherRepository =
-      WeatherAppNetworkRepository(weatherApiClient);
+  final weatherApiClient = ApiClient(dio);
+  final networkWeatherRepository = NetworkRepository(weatherApiClient);
   final networkRepositoryProvider = RepositoryProvider<WeatherAppRepository>(
     create: (context) => networkWeatherRepository,
   );
