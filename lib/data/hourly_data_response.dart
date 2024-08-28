@@ -19,9 +19,9 @@ class HourlyDataResponse {
     return days.first.hours.map((data) {
       return HourlyData(
         datetime: DateFormat('HH:mm:ss').parse(data.datetime),
-        temp: data.temp,
+        temp: data.temp.toStringAsFixed(0),
         feelslike: data.feelslike,
-        humidity: data.humidity,
+        humidity: data.humidity.toStringAsFixed(0),
         windSpeed: data.windSpeed,
         windDir: data.windDir,
         pressure: data.pressure,
@@ -29,6 +29,7 @@ class HourlyDataResponse {
         uvIndex: data.uvIndex,
         conditions: data.conditions,
         address: address,
+        image: setImage(data.conditions),
       );
     }).toList();
   }
@@ -76,4 +77,19 @@ class Hours {
     required this.conditions,
   });
   factory Hours.fromJson(Map<String, dynamic> json) => _$HoursFromJson(json);
+}
+
+String setImage(String conditions) {
+  if (conditions == "Clear") {
+    return 'assets/sunny32x32.png';
+  } else if (conditions == "Rain, Overcast") {
+    return 'assets/Moon_cloud_mid_rain32x32.png';
+  } else if (conditions == "Overcast") {
+    return 'assets/Moon_cloud_fast_wind32x32.png';
+  } else if (conditions == "Partially cloudy") {
+    return 'assets/Sun_cloud_angled_rain32x32.png';
+  } else if (conditions == "Rain, Partially cloudy") {
+    return 'assets/Sun_cloud_mid_rain32x32.png';
+  }
+  return 'assets/Tornado32x32';
 }

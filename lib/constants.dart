@@ -306,7 +306,7 @@ class CenterWiew {
     for (int i = 0; i < hourlyList.length; i++) {
       String hour = hourlyList[i].getTime;
       if (hour == currentTime) {
-        return i;
+        return i + 1;
       }
     }
     return 0;

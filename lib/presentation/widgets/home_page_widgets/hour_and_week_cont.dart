@@ -3,7 +3,6 @@ import 'dart:ui';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:intl/intl.dart';
 import 'package:weather_app/constants.dart';
 import 'package:weather_app/design_system/app_colors.dart';
 import 'package:weather_app/design_system/app_styles.dart';
@@ -216,12 +215,14 @@ class _HourlyAndWeeklyContState extends State<HourlyAndWeeklyCont> {
                                 ? widget.hourlyList[index].getTime
                                 : widget.weeklyList[index].getDate,
                             degree: isHourlySelected
-                                ? widget.hourlyList[index].getTemp
-                                : widget.weeklyList[index].getTemp,
+                                ? widget.hourlyList[index].temp
+                                : widget.weeklyList[index].temperature,
                             label: isHourlySelected
-                                ? widget.hourlyList[index].getHumidity
-                                : widget.weeklyList[index].getHumidity,
-                            weatherIcon: 'assets/Moon_cloud_mid_rain32x32.png',
+                                ? widget.hourlyList[index].humidity
+                                : widget.weeklyList[index].humidity,
+                            weatherImage: isHourlySelected
+                                ? widget.hourlyList[index].image
+                                : widget.weeklyList[index].image,
                           ),
                           separatorBuilder: (context, index) => const SizedBox(
                             width: 8,
@@ -243,37 +244,5 @@ class _HourlyAndWeeklyContState extends State<HourlyAndWeeklyCont> {
         ),
       ),
     );
-  }
-
-  void _centerItem(int index) {
-    double itemWidth = 68.0;
-    double lwPadding = 20;
-    double screenWidth = MediaQuery.of(context).size.width;
-    double scrollOffset =
-        index * itemWidth - (screenWidth / 2) - ((itemWidth - lwPadding) / 2);
-    _scrollController.animateTo(
-      scrollOffset,
-      duration: const Duration(seconds: 1),
-      curve: Curves.easeInOut,
-    );
-  }
-
-  int getActiveTimeIndex() {
-    for (int i = 0; i < widget.hourlyList.length; i++) {
-      String hour = widget.hourlyList[i].getTime;
-      if (hour == getCurrentTime()) {
-        return i;
-      }
-    }
-    return 0;
-  }
-
-  String getCurrentTime() {
-    DateTime now = DateTime.now();
-    String formattedTime = DateFormat('hh a').format(now);
-    if (formattedTime.startsWith('0')) {
-      return formattedTime.substring(1);
-    }
-    return formattedTime;
   }
 }

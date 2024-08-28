@@ -6,7 +6,11 @@ import 'package:weather_app/presentation/weather_widgets_page.dart';
 import 'package:weather_app/presentation/widgets/home_page_widgets/plus_button.dart';
 
 class CustomBottomNavBar extends StatefulWidget {
-  const CustomBottomNavBar({super.key});
+  final Function(bool clicked) isLocationPressed;
+  const CustomBottomNavBar({
+    super.key,
+    required this.isLocationPressed,
+  });
 
   @override
   State<CustomBottomNavBar> createState() => _CustomBottomNavBarState();
@@ -55,6 +59,9 @@ class _CustomBottomNavBarState extends State<CustomBottomNavBar> {
               onTap: () {
                 setState(() {
                   isPressed = !isPressed;
+                  if (isPressed) {
+                    widget.isLocationPressed(isPressed);
+                  }
                 });
               },
               child: isPressed ? AppIcons.navigationOn : AppIcons.navigationOff,
@@ -78,6 +85,34 @@ class _CustomBottomNavBarState extends State<CustomBottomNavBar> {
       ),
     );
   }
+
+  // Future<void> _getCurrentLocation() async {
+  //   Position locationData;
+  //   bool serviceEnabled = await Geolocator.isLocationServiceEnabled();
+  //   if (!serviceEnabled) {
+  //     return Future.error('Location services are disabled');
+  //   }
+
+  //   LocationPermission permission = await Geolocator.checkPermission();
+  //   if (permission == LocationPermission.denied) {
+  //     permission == await Geolocator.requestPermission();
+  //     if (permission == LocationPermission.denied) {
+  //       return Future.error('Location permissions are denied');
+  //     }
+  //   }
+
+  //   if (permission == LocationPermission.deniedForever) {
+  //     return Future.error('Location permissions permamently denied');
+  //   }
+  //   LocationSettings locationSettings = const LocationSettings(
+  //     accuracy: LocationAccuracy.high,
+  //     distanceFilter: 100,
+  //   );
+  //   locationData =
+  //       await Geolocator.getCurrentPosition(locationSettings: locationSettings);
+
+  //   widget.onLocationFetched(locationData);
+  // }
 }
 
 class BottomNavBarPainter extends CustomPainter {

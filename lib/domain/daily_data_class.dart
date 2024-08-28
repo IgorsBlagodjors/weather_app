@@ -3,11 +3,13 @@ import 'package:intl/intl.dart';
 
 class DailyData extends Equatable {
   final DateTime date;
-  final double temperature;
-  final double humidity;
+  final String temperature;
+  final String humidity;
   final String sunrise;
-  final double tempMin;
-  final double tempMax;
+  final String tempMin;
+  final String tempMax;
+  final String conditions;
+  final String image;
 
   const DailyData({
     required this.date,
@@ -16,6 +18,8 @@ class DailyData extends Equatable {
     required this.sunrise,
     required this.tempMin,
     required this.tempMax,
+    required this.conditions,
+    required this.image,
   });
 
   @override
@@ -25,21 +29,6 @@ class DailyData extends Equatable {
         humidity,
         sunrise,
       ];
-  String get getTemp {
-    return temperature.toStringAsFixed(0);
-  }
-
-  String get getTempMin {
-    return tempMin.toStringAsFixed(0);
-  }
-
-  String get getTempMax {
-    return tempMax.toStringAsFixed(0);
-  }
-
-  String get getHumidity {
-    return humidity.toStringAsFixed(0);
-  }
 
   String get getDate {
     return DateFormat('EEE').format(date).toUpperCase();

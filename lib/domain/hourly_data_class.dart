@@ -4,27 +4,30 @@ import 'package:intl/intl.dart';
 class HourlyData extends Equatable {
   final DateTime datetime;
   final String address;
-  final double temp;
+  final String temp;
   final double feelslike;
-  final double humidity;
+  final String humidity;
   final double windSpeed;
   final double windDir;
   final double pressure;
   final double visibility;
   final double uvIndex;
   final String conditions;
-  const HourlyData(
-      {required this.datetime,
-      required this.temp,
-      required this.feelslike,
-      required this.humidity,
-      required this.windSpeed,
-      required this.windDir,
-      required this.pressure,
-      required this.visibility,
-      required this.uvIndex,
-      required this.conditions,
-      required this.address});
+  final String image;
+  const HourlyData({
+    required this.datetime,
+    required this.temp,
+    required this.feelslike,
+    required this.humidity,
+    required this.windSpeed,
+    required this.windDir,
+    required this.pressure,
+    required this.visibility,
+    required this.uvIndex,
+    required this.conditions,
+    required this.address,
+    required this.image,
+  });
 
   @override
   List<Object?> get props => [
@@ -39,9 +42,6 @@ class HourlyData extends Equatable {
         uvIndex,
         conditions,
       ];
-  String get getTemp {
-    return temp.toStringAsFixed(0);
-  }
 
   String get getTime {
     String formattedTime = DateFormat('hh a').format(datetime);
@@ -49,10 +49,6 @@ class HourlyData extends Equatable {
       return formattedTime.substring(1);
     }
     return formattedTime;
-  }
-
-  String get getHumidity {
-    return humidity.toStringAsFixed(0);
   }
 
   String get getAddress {
@@ -63,8 +59,4 @@ class HourlyData extends Equatable {
       return cityName;
     }
   }
-
-  //  String get getTemp {
-  //   return temp.toStringAsFixed(0);
-  // }
 }

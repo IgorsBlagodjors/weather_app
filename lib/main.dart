@@ -22,6 +22,20 @@ void main() {
       request: true,
     ),
   );
+  final dioAdress = Dio(
+    BaseOptions(
+      baseUrl: 'https://maps.googleapis.com/maps/api/geocode/json',
+    ),
+  );
+  dio.interceptors.add(
+    LogInterceptor(
+      responseBody: true,
+      requestBody: true,
+      requestHeader: true,
+      responseHeader: true,
+      request: true,
+    ),
+  );
   final weatherApiClient = ApiClient(dio);
   final networkWeatherRepository = NetworkRepository(weatherApiClient);
   final networkRepositoryProvider = RepositoryProvider<WeatherAppRepository>(

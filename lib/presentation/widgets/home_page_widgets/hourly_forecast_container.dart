@@ -7,14 +7,14 @@ class HourlyForecastContainer extends StatelessWidget {
   final String hour;
   final String degree;
   final String? label;
-  final String weatherIcon;
+  final String weatherImage;
 
   const HourlyForecastContainer({
     super.key,
     required this.hour,
     required this.degree,
     required this.label,
-    required this.weatherIcon,
+    required this.weatherImage,
   });
 
   @override
@@ -102,7 +102,7 @@ class HourlyForecastContainer extends StatelessWidget {
           Positioned(
             top: 48,
             child: Image.asset(
-              weatherIcon,
+              weatherImage,
               width: 32,
               height: 32,
             ),

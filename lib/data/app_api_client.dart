@@ -10,18 +10,32 @@ class ApiClient {
   final Dio _dio;
   ApiClient(this._dio);
 
-  Future<List<DailyData>> getDailyWeatherInfo() async {
+  Future<List<DailyData>> getDailyWeatherInfo({
+    String location = 'Moscow,Russia',
+  }) async {
     final String date = getWeekDays();
-    final response = await _dio
-        .get('Riga,Latvia/$date?unitGroup=metric&key=$weatherApiKey3');
+
+    final queryParams = {
+      'unitGroup': 'metric',
+      'key': ApiKey.weatherApiKey2,
+    };
+    final response =
+        await _dio.get('$location/$date', queryParameters: queryParams);
     final fullResponse = DailyDataResponse.fromJson(response.data);
 
     return fullResponse.toModel();
   }
 
-  Future<List<HourlyData>> getHourlyWeatherInfo() async {
-    final response = await _dio.get(
-        'Riga,Latvia?unitGroup=metric&include=hours&key=$weatherApiKey3&contentType=json');
+  Future<List<HourlyData>> getHourlyWeatherInfo({
+    String location = 'Moscow,Russia',
+  }) async {
+    final queryParams = {
+      'unitGroup': 'metric',
+      'include': 'hours',
+      'key': ApiKey.weatherApiKey2,
+      'contentType': 'json'
+    };
+    final response = await _dio.get(location, queryParameters: queryParams);
     final fullResponse = HourlyDataResponse.fromJson(response.data);
     return fullResponse.toModel();
   }

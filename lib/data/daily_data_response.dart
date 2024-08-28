@@ -14,13 +14,14 @@ class DailyDataResponse {
   List<DailyData> toModel() {
     return days.map((daysItem) {
       return DailyData(
-        date: DateTime.parse(daysItem.datetime),
-        temperature: daysItem.temp,
-        humidity: daysItem.humidity,
-        sunrise: daysItem.sunrise,
-        tempMax: daysItem.tempMax,
-        tempMin: daysItem.tempMin,
-      );
+          date: DateTime.parse(daysItem.datetime),
+          temperature: daysItem.temp.toStringAsFixed(0),
+          humidity: daysItem.humidity.toStringAsFixed(0),
+          sunrise: daysItem.sunrise,
+          tempMax: daysItem.tempMax.toStringAsFixed(0),
+          tempMin: daysItem.tempMin.toStringAsFixed(0),
+          conditions: daysItem.conditions,
+          image: setImage(daysItem.conditions));
     }).toList();
   }
 
@@ -34,6 +35,7 @@ class Day {
   final double temp;
   final double humidity;
   final String sunrise;
+  final String conditions;
   @JsonKey(name: 'tempmin')
   final double tempMin;
   @JsonKey(name: 'tempmax')
@@ -46,6 +48,22 @@ class Day {
     required this.sunrise,
     required this.tempMin,
     required this.tempMax,
+    required this.conditions,
   });
   factory Day.fromJson(Map<String, dynamic> json) => _$DayFromJson(json);
+}
+
+String setImage(String conditions) {
+  if (conditions == "Clear") {
+    return 'assets/sunny32x32.png';
+  } else if (conditions == "Rain, Overcast") {
+    return 'assets/Moon_cloud_mid_rain32x32.png';
+  } else if (conditions == "Overcast") {
+    return 'assets/Moon_cloud_fast_wind32x32.png';
+  } else if (conditions == "Partially cloudy") {
+    return 'assets/Sun_cloud_angled_rain32x32.png';
+  } else if (conditions == "Rain, Partially cloudy") {
+    return 'assets/Sun_cloud_mid_rain32x32.png';
+  }
+  return 'assets/Tornado32x32';
 }

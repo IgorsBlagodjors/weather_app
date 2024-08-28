@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:weather_app/design_system/app_colors.dart';
 import 'package:weather_app/design_system/app_styles.dart';
 import 'package:weather_app/presentation/bloc/home_page_cubit.dart';
@@ -22,14 +23,14 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   late final HomePageCubit _cubit;
-
   bool isHourlySelected = true;
+  Position? position;
 
   @override
   void initState() {
     super.initState();
     _cubit = context.read();
-    _cubit.fetchWeather();
+    _cubit.fetchWeather(position);
   }
 
   @override
@@ -67,7 +68,7 @@ class _HomePageState extends State<HomePage> {
                             height: 12,
                           ),
                           Text(
-                            '${hourlyData.first.getTemp}°',
+                            '${_cubit.getLiveTemp(hourlyData)}°',
                             style: const TextStyle(
                                 height: 0.8,
                                 fontSize: 96,
@@ -78,7 +79,7 @@ class _HomePageState extends State<HomePage> {
                             height: 12,
                           ),
                           Text(
-                            hourlyData.first.conditions,
+                            _cubit.getLiveWeatherCondition(hourlyData),
                             overflow: TextOverflow.ellipsis,
                             maxLines: 1,
                             style: AppStyles.boldTitle2.copyWith(
@@ -86,7 +87,7 @@ class _HomePageState extends State<HomePage> {
                             ),
                           ),
                           Text(
-                            'H:${data.first.getTempMax}° L:${data.first.getTempMin}°',
+                            'H:${_cubit.getLiveMinTemp(data)}° L:${_cubit.getLiveMaxTemp(data)}°',
                             style: AppStyles.boldTitle2,
                           ),
                         ],
@@ -137,11 +138,16 @@ class _HomePageState extends State<HomePage> {
                   isEllipses: true,
                 ),
               ),
-              const Positioned(
+              Positioned(
                 left: 0,
                 right: 0,
                 bottom: 0,
-                child: CustomBottomNavBar(),
+                child: CustomBottomNavBar(
+                  isLocationPressed: (bool clicked) async {
+                    position = await _cubit.getCurrentLocation();
+                    _cubit.fetchWeather(position);
+                  },
+                ),
               ),
             ],
           );
