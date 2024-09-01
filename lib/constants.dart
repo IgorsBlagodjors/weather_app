@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:geocoding/geocoding.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:intl/intl.dart';
+import 'package:weather_app/domain/daily_data_class.dart';
 import 'package:weather_app/domain/hourly_data_class.dart';
 
 List<Map<String, dynamic>> testListIsNow = [
@@ -252,26 +255,6 @@ String getDay() {
   return dayOfWeek.toUpperCase();
 }
 
-// int getActiveTimeIndex() {
-//   for (int i = 0; i < testListIsNow.length; i++) {
-//     String hour = testListIsNow[i]['hour'];
-//     if (hour == getTime()) {
-//       return i;
-//     }
-//   }
-//   return 0;
-// }
-
-// int getActiveDayIndex() {
-//   for (int i = 0; i < testListIsNow.length; i++) {
-//     String hour = testListIsNow[i]['hour'];
-//     if (hour == getDay()) {
-//       return i;
-//     }
-//   }
-//   return 0;
-// }
-
 String getWeekDays() {
   DateTime today = DateTime.now();
   DateTime startOfWeek = today.subtract(Duration(days: today.weekday - 1));
@@ -319,5 +302,178 @@ class CenterWiew {
       return formattedTime.substring(1);
     }
     return formattedTime;
+  }
+}
+
+class WeatherServices {
+  static String getLiveTemp(List<HourlyData> hourlyItems) {
+    DateTime now = DateTime.now();
+    for (var data in hourlyItems) {
+      if (data.datetime.hour == now.hour) {
+        return data.temp;
+      }
+    }
+    return 'Unknown';
+  }
+
+  static Future<String> getAddressFromCoordinates() async {
+    Position position = await WeatherServices.getCurrentLocation();
+    try {
+      // Get the list of addresses from the coordinates
+      List<Placemark> placemarks =
+          await placemarkFromCoordinates(position.latitude, position.longitude);
+
+      if (placemarks.isNotEmpty) {
+        // Get the first address from the list
+        Placemark place = placemarks[0];
+
+        // Extract the country and city from the address
+        String country = place.country ?? 'Russia';
+        String city = place.locality ?? 'Moscow';
+
+        return '$city,$country';
+      } else {
+        return 'No address found for the coordinates.';
+      }
+    } catch (e) {
+      return 'Error: $e';
+    }
+  }
+
+  static String getLiveWeatherCondition(List<HourlyData> hourlyItems) {
+    DateTime now = DateTime.now();
+    for (var data in hourlyItems) {
+      if (data.datetime.hour == now.hour) {
+        return data.conditions;
+      }
+    }
+    return 'Unknown';
+  }
+
+  static String getLiveWindSpeed(List<HourlyData> hourlyItems) {
+    DateTime now = DateTime.now();
+    for (var data in hourlyItems) {
+      if (data.datetime.hour == now.hour) {
+        return data.windSpeed;
+      }
+    }
+    return 'Unknown';
+  }
+
+  static double getLiveWindDir(List<HourlyData> hourlyItems) {
+    DateTime now = DateTime.now();
+    for (var data in hourlyItems) {
+      if (data.datetime.hour == now.hour) {
+        return data.windDir;
+      }
+    }
+    return 0;
+  }
+
+  static double getLiveFeelsLike(List<HourlyData> hourlyItems) {
+    DateTime now = DateTime.now();
+    for (var data in hourlyItems) {
+      if (data.datetime.hour == now.hour) {
+        return data.feelslike;
+      }
+    }
+    return 0;
+  }
+
+  static String getLiveHumidity(List<HourlyData> hourlyItems) {
+    DateTime now = DateTime.now();
+    for (var data in hourlyItems) {
+      if (data.datetime.hour == now.hour) {
+        return data.humidity;
+      }
+    }
+    return 'Unknown';
+  }
+
+  static String getLiveVisibility(List<HourlyData> hourlyItems) {
+    DateTime now = DateTime.now();
+    for (var data in hourlyItems) {
+      if (data.datetime.hour == now.hour) {
+        return data.visibility;
+      }
+    }
+    return 'Unknown';
+  }
+
+  static double getLivePreasure(List<HourlyData> hourlyItems) {
+    DateTime now = DateTime.now();
+    for (var data in hourlyItems) {
+      if (data.datetime.hour == now.hour) {
+        return data.pressure;
+      }
+    }
+    return 0;
+  }
+
+  static String getLiveUVIndex(List<HourlyData> hourlyItems) {
+    DateTime now = DateTime.now();
+    for (var data in hourlyItems) {
+      if (data.datetime.hour == now.hour) {
+        return data.uvIndex.toString();
+      }
+    }
+    return 'Unknown';
+  }
+
+  static String getSunriseForCurrentDay(List<DailyData> dailyItems) {
+    DateTime now = DateTime.now();
+    DateFormat timeFormat = DateFormat('h:mm a');
+    for (var data in dailyItems) {
+      if (data.date.day == now.day) {
+        return timeFormat.format(data.sunrise);
+      }
+    }
+    return 'Unknown';
+  }
+
+  static String _getTempForCurrentDay(
+      List<DailyData> dailyItems, String Function(DailyData) tempSelector) {
+    DateTime now = DateTime.now();
+    for (var data in dailyItems) {
+      if (data.date.day == now.day) {
+        return tempSelector(data);
+      }
+    }
+    return 'Unknown';
+  }
+
+  static String getLiveMinTemp(List<DailyData> dailyItems) {
+    return _getTempForCurrentDay(dailyItems, (data) => data.tempMin);
+  }
+
+  static String getLiveMaxTemp(List<DailyData> dailyItems) {
+    return _getTempForCurrentDay(dailyItems, (data) => data.tempMax);
+  }
+
+  static Future<Position> getCurrentLocation() async {
+    Position locationData;
+    bool serviceEnabled = await Geolocator.isLocationServiceEnabled();
+    if (!serviceEnabled) {
+      return Future.error('Location services are disabled');
+    }
+
+    LocationPermission permission = await Geolocator.checkPermission();
+    if (permission == LocationPermission.denied) {
+      permission == await Geolocator.requestPermission();
+      if (permission == LocationPermission.denied) {
+        return Future.error('Location permissions are denied');
+      }
+    }
+
+    if (permission == LocationPermission.deniedForever) {
+      return Future.error('Location permissions permamently denied');
+    }
+    LocationSettings locationSettings = const LocationSettings(
+      accuracy: LocationAccuracy.high,
+      distanceFilter: 100,
+    );
+    locationData =
+        await Geolocator.getCurrentPosition(locationSettings: locationSettings);
+    return locationData;
   }
 }

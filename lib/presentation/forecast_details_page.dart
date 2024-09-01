@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:weather_app/constants.dart';
 import 'package:weather_app/design_system/app_colors.dart';
 import 'package:weather_app/design_system/app_styles.dart';
+import 'package:weather_app/domain/daily_data_class.dart';
+import 'package:weather_app/domain/hourly_data_class.dart';
 import 'package:weather_app/presentation/widgets/forecast_details_page_widgets/air_quality.dart';
 import 'package:weather_app/presentation/widgets/forecast_details_page_widgets/forecast_details_fixed_size.dart';
 import 'package:weather_app/presentation/widgets/forecast_details_page_widgets/pressure.dart';
@@ -12,7 +15,14 @@ import 'package:weather_app/presentation/widgets/home_page_widgets/elipses.dart'
 import 'package:weather_app/presentation/widgets/home_page_widgets/hour_and_week_cont.dart';
 
 class WeatherDetailsPage extends StatefulWidget {
-  const WeatherDetailsPage({super.key});
+  final List<HourlyData> hourlyList;
+  final List<DailyData> weeklyList;
+
+  const WeatherDetailsPage({
+    super.key,
+    required this.hourlyList,
+    required this.weeklyList,
+  });
 
   @override
   State<WeatherDetailsPage> createState() => _WeatherDetailsPageState();
@@ -69,12 +79,12 @@ class _WeatherDetailsPageState extends State<WeatherDetailsPage> {
                             const SizedBox(
                               height: 4,
                             ),
-                            const Text(
-                              'Montreal',
+                            Text(
+                              widget.hourlyList.first.getAddress,
                               style: AppStyles.regularLargeTitle,
                             ),
                             Text(
-                              '19°| Mostly Clear',
+                              '${WeatherServices.getLiveTemp(widget.hourlyList)}°| ${WeatherServices.getLiveWeatherCondition(widget.hourlyList)}',
                               style: AppStyles.boldTitle2.copyWith(
                                 color: const Color(0xFFebebf5).withOpacity(0.6),
                               ),
@@ -88,45 +98,57 @@ class _WeatherDetailsPageState extends State<WeatherDetailsPage> {
                     ),
                   ),
                 ),
-                const SliverToBoxAdapter(
+                SliverToBoxAdapter(
                   child: Column(
                     children: [
                       HourlyAndWeeklyCont(
-                        hourlyList: [],
-                        weeklyList: [],
+                        hourlyList: widget.hourlyList,
+                        weeklyList: widget.weeklyList,
                         isBorder: false,
                         isEllipses: false,
                         containerHeight: 1150,
-                        additionalChild: const Column(
+                        additionalChild: Column(
                           children: [
-                            SizedBox(
+                            const SizedBox(
                               height: 19,
                             ),
-                            AirQuality(),
-                            SizedBox(
+                            const AirQuality(),
+                            const SizedBox(
                               height: 10,
                             ),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                UvIndex(),
-                                SizedBox(
+                                UvIndex(
+                                  uVIndex: WeatherServices.getLiveUVIndex(
+                                      widget.hourlyList),
+                                ),
+                                const SizedBox(
                                   width: 14,
                                 ),
-                                SunRise(),
+                                SunRise(
+                                  sunrise:
+                                      WeatherServices.getSunriseForCurrentDay(
+                                          widget.weeklyList),
+                                ),
                               ],
                             ),
-                            SizedBox(
+                            const SizedBox(
                               height: 10,
                             ),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                Wind(),
-                                SizedBox(
+                                Wind(
+                                  windSpeed: WeatherServices.getLiveWindSpeed(
+                                      widget.hourlyList),
+                                  windDir: WeatherServices.getLiveWindDir(
+                                      widget.hourlyList),
+                                ),
+                                const SizedBox(
                                   width: 14,
                                 ),
-                                WeatherDetailsFixedSize(
+                                const WeatherDetailsFixedSize(
                                   title: 'RAINFALL',
                                   titleIcon: Icons.water_drop,
                                   description: '1.2 mm expected in next 24h',
@@ -135,7 +157,7 @@ class _WeatherDetailsPageState extends State<WeatherDetailsPage> {
                                 )
                               ],
                             ),
-                            SizedBox(
+                            const SizedBox(
                               height: 10,
                             ),
                             Row(
@@ -144,22 +166,24 @@ class _WeatherDetailsPageState extends State<WeatherDetailsPage> {
                                 WeatherDetailsFixedSize(
                                   titleIcon: FontAwesomeIcons.temperatureHalf,
                                   title: 'FEELS LIKE',
-                                  indications: '19°',
+                                  indications:
+                                      '${WeatherServices.getLiveFeelsLike(widget.hourlyList)}°',
                                   description:
                                       'Similar to the actual temperature',
                                 ),
-                                SizedBox(
+                                const SizedBox(
                                   width: 14,
                                 ),
                                 WeatherDetailsFixedSize(
                                   titleIcon: Icons.shower,
                                   title: 'HUMIDITY',
-                                  indications: '90%',
+                                  indications:
+                                      '${WeatherServices.getLiveHumidity(widget.hourlyList)}%',
                                   description: 'The dew point is 17 right now',
                                 ),
                               ],
                             ),
-                            SizedBox(
+                            const SizedBox(
                               height: 10,
                             ),
                             Row(
@@ -168,14 +192,18 @@ class _WeatherDetailsPageState extends State<WeatherDetailsPage> {
                                 WeatherDetailsFixedSize(
                                   titleIcon: Icons.visibility_sharp,
                                   title: 'VISIBILITY',
-                                  indications: '8 km',
+                                  indications:
+                                      '${WeatherServices.getLiveVisibility(widget.hourlyList)} km',
                                   description:
                                       'Similar to the actual temperature',
                                 ),
-                                SizedBox(
+                                const SizedBox(
                                   width: 14,
                                 ),
-                                Pressure(),
+                                Pressure(
+                                  preasure: WeatherServices.getLivePreasure(
+                                      widget.hourlyList),
+                                ),
                               ],
                             ),
                           ],

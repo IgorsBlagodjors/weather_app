@@ -6,7 +6,8 @@ import 'package:weather_app/design_system/app_styles.dart';
 import 'package:weather_app/presentation/widgets/forecast_details_page_widgets/forecast_details_container.dart';
 
 class Pressure extends StatelessWidget {
-  const Pressure({super.key});
+  final double preasure;
+  const Pressure({super.key, required this.preasure});
 
   @override
   Widget build(BuildContext context) {
@@ -38,7 +39,7 @@ class Pressure extends StatelessWidget {
             ),
             Center(
               child: CustomPaint(
-                painter: PressurePainter(degrees: 360),
+                painter: PressurePainter(degrees: preasure),
                 size: const Size(113, 103),
               ),
             ),

@@ -18,11 +18,11 @@ class HomePageCubit extends Cubit<HomePageState> {
             isError: false,
           ),
         );
-  Future<void> fetchWeather(Position? position) async {
+  Future<void> fetchWeather(String? address) async {
     emit(state.copyWith(isLoading: true));
     try {
-      final items = await _weatherAppRepository.getDailyData(position);
-      final hourlyItems = await _weatherAppRepository.getHourlyData(position);
+      final items = await _weatherAppRepository.getDailyData(address);
+      final hourlyItems = await _weatherAppRepository.getHourlyData(address);
       emit(state.copyWith(
           items: items, hourlyItems: hourlyItems, isLoading: false));
     } on Exception catch (ex, stacktrace) {
@@ -56,44 +56,5 @@ class HomePageCubit extends Cubit<HomePageState> {
     locationData =
         await Geolocator.getCurrentPosition(locationSettings: locationSettings);
     return locationData;
-  }
-
-  String getLiveTemp(List<HourlyData> hourlyItems) {
-    DateTime now = DateTime.now();
-    for (var data in hourlyItems) {
-      if (data.datetime.hour == now.hour) {
-        return data.temp;
-      }
-    }
-    return 'Unknown';
-  }
-
-  String getLiveWeatherCondition(List<HourlyData> hourlyItems) {
-    DateTime now = DateTime.now();
-    for (var data in hourlyItems) {
-      if (data.datetime.hour == now.hour) {
-        return data.conditions;
-      }
-    }
-    return 'Unknown';
-  }
-
-  String _getTempForCurrentDay(
-      List<DailyData> dailyItems, String Function(DailyData) tempSelector) {
-    DateTime now = DateTime.now();
-    for (var data in dailyItems) {
-      if (data.date.day == now.day) {
-        return tempSelector(data);
-      }
-    }
-    return 'Unknown';
-  }
-
-  String getLiveMinTemp(List<DailyData> dailyItems) {
-    return _getTempForCurrentDay(dailyItems, (data) => data.tempMin);
-  }
-
-  String getLiveMaxTemp(List<DailyData> dailyItems) {
-    return _getTempForCurrentDay(dailyItems, (data) => data.tempMax);
   }
 }

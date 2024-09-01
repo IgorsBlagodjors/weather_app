@@ -3,5 +3,6 @@
         "datetime",
         "feelslike",
         "Wiew"
-    ]
+    ],
+    "cmake.sourceDirectory": "C:/Users/igorb/AndroidStudioProjects/weather_app/windows/flutter"
 }

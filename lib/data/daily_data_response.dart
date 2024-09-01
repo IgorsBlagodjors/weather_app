@@ -17,7 +17,7 @@ class DailyDataResponse {
           date: DateTime.parse(daysItem.datetime),
           temperature: daysItem.temp.toStringAsFixed(0),
           humidity: daysItem.humidity.toStringAsFixed(0),
-          sunrise: daysItem.sunrise,
+          sunrise: DateTime.parse(daysItem.sunrise),
           tempMax: daysItem.tempMax.toStringAsFixed(0),
           tempMin: daysItem.tempMin.toStringAsFixed(0),
           conditions: daysItem.conditions,

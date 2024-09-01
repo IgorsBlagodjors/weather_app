@@ -5,7 +5,11 @@ import 'package:weather_app/design_system/app_styles.dart';
 import 'package:weather_app/presentation/widgets/forecast_details_page_widgets/forecast_details_container.dart';
 
 class SunRise extends StatelessWidget {
-  const SunRise({super.key});
+  final String sunrise;
+  const SunRise({
+    super.key,
+    required this.sunrise,
+  });
 
   @override
   Widget build(BuildContext context) {

@@ -7,7 +7,13 @@ import 'package:weather_app/design_system/app_styles.dart';
 import 'package:weather_app/presentation/widgets/forecast_details_page_widgets/forecast_details_container.dart';
 
 class Wind extends StatelessWidget {
-  const Wind({super.key});
+  final double windDir;
+  final String windSpeed;
+  const Wind({
+    super.key,
+    required this.windDir,
+    required this.windSpeed,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -36,7 +42,8 @@ class Wind extends StatelessWidget {
             ),
             Center(
               child: CustomPaint(
-                painter: WindDirectionPainter(degrees: 180),
+                painter: WindDirectionPainter(
+                    degrees: windDir, windSpeed: windSpeed),
                 size: const Size(113, 113),
               ),
             ),
@@ -49,8 +56,12 @@ class Wind extends StatelessWidget {
 
 class WindDirectionPainter extends CustomPainter {
   final double degrees;
+  final String windSpeed;
 
-  WindDirectionPainter({required this.degrees});
+  WindDirectionPainter({
+    required this.degrees,
+    required this.windSpeed,
+  });
   @override
   void paint(Canvas canvas, Size size) {
     double centerX = size.width / 2;
@@ -113,8 +124,8 @@ class WindDirectionPainter extends CustomPainter {
 
     //Middle text
     TextPainter speedIndicator = TextPainter(
-      text: const TextSpan(
-        text: '9.7 ',
+      text: TextSpan(
+        text: windSpeed,
         style: AppStyles.boldBody,
       ),
       textDirection: TextDirection.ltr,

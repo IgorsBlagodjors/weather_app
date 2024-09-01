@@ -9,23 +9,21 @@ class NetworkRepository implements WeatherAppRepository {
   NetworkRepository(this._weatherApiClient);
 
   @override
-  Future<List<DailyData>> getDailyData(Position? position) async {
-    bool isPositionEmpty = position == null;
+  Future<List<DailyData>> getDailyData(String? address) async {
+    bool isAddressEmpty = address == null;
 
-    final response = isPositionEmpty
+    final response = isAddressEmpty
         ? await _weatherApiClient.getDailyWeatherInfo()
-        : await _weatherApiClient.getDailyWeatherInfo(
-            location: '${position.latitude},${position.longitude}');
+        : await _weatherApiClient.getDailyWeatherInfo(location: address);
     return response;
   }
 
   @override
-  Future<List<HourlyData>> getHourlyData(Position? position) async {
-    bool isPositionEmpty = position == null;
+  Future<List<HourlyData>> getHourlyData(String? address) async {
+    bool isPositionEmpty = address == null;
     final response = isPositionEmpty
         ? await _weatherApiClient.getHourlyWeatherInfo()
-        : await _weatherApiClient.getHourlyWeatherInfo(
-            location: '${position.latitude},${position.longitude}');
+        : await _weatherApiClient.getHourlyWeatherInfo(location: address);
     return response;
   }
 }

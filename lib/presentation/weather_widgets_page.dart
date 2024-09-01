@@ -2,6 +2,7 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:weather_app/constants.dart';
+
 import 'package:weather_app/design_system/app_colors.dart';
 import 'package:weather_app/design_system/app_gradiend.dart';
 import 'package:weather_app/design_system/app_icons.dart';

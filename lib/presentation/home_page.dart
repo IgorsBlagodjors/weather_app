@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:weather_app/constants.dart';
 import 'package:weather_app/design_system/app_colors.dart';
 import 'package:weather_app/design_system/app_styles.dart';
 import 'package:weather_app/presentation/bloc/home_page_cubit.dart';
@@ -24,13 +25,13 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   late final HomePageCubit _cubit;
   bool isHourlySelected = true;
-  Position? position;
+  String? address;
 
   @override
   void initState() {
     super.initState();
     _cubit = context.read();
-    _cubit.fetchWeather(position);
+    _cubit.fetchWeather(address);
   }
 
   @override
@@ -68,7 +69,7 @@ class _HomePageState extends State<HomePage> {
                             height: 12,
                           ),
                           Text(
-                            '${_cubit.getLiveTemp(hourlyData)}°',
+                            '${WeatherServices.getLiveTemp(hourlyData)}°',
                             style: const TextStyle(
                                 height: 0.8,
                                 fontSize: 96,
@@ -79,7 +80,7 @@ class _HomePageState extends State<HomePage> {
                             height: 12,
                           ),
                           Text(
-                            _cubit.getLiveWeatherCondition(hourlyData),
+                            WeatherServices.getLiveWeatherCondition(hourlyData),
                             overflow: TextOverflow.ellipsis,
                             maxLines: 1,
                             style: AppStyles.boldTitle2.copyWith(
@@ -87,7 +88,7 @@ class _HomePageState extends State<HomePage> {
                             ),
                           ),
                           Text(
-                            'H:${_cubit.getLiveMinTemp(data)}° L:${_cubit.getLiveMaxTemp(data)}°',
+                            'H:${WeatherServices.getLiveMinTemp(data)}° L:${WeatherServices.getLiveMaxTemp(data)}°',
                             style: AppStyles.boldTitle2,
                           ),
                         ],
@@ -143,9 +144,12 @@ class _HomePageState extends State<HomePage> {
                 right: 0,
                 bottom: 0,
                 child: CustomBottomNavBar(
+                  hourlyList: hourlyData,
+                  weeklyList: data,
                   isLocationPressed: (bool clicked) async {
-                    position = await _cubit.getCurrentLocation();
-                    _cubit.fetchWeather(position);
+                    String address =
+                        await WeatherServices.getAddressFromCoordinates();
+                    _cubit.fetchWeather(address);
                   },
                 ),
               ),

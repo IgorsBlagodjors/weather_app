@@ -5,7 +5,7 @@ class DailyData extends Equatable {
   final DateTime date;
   final String temperature;
   final String humidity;
-  final String sunrise;
+  final DateTime sunrise;
   final String tempMin;
   final String tempMax;
   final String conditions;

@@ -17,7 +17,7 @@ class ApiClient {
 
     final queryParams = {
       'unitGroup': 'metric',
-      'key': ApiKey.weatherApiKey2,
+      'key': ApiKey.weatherApiKey1,
     };
     final response =
         await _dio.get('$location/$date', queryParameters: queryParams);
@@ -32,7 +32,7 @@ class ApiClient {
     final queryParams = {
       'unitGroup': 'metric',
       'include': 'hours',
-      'key': ApiKey.weatherApiKey2,
+      'key': ApiKey.weatherApiKey1,
       'contentType': 'json'
     };
     final response = await _dio.get(location, queryParameters: queryParams);

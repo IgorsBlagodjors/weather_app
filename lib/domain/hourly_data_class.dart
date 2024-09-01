@@ -7,10 +7,10 @@ class HourlyData extends Equatable {
   final String temp;
   final double feelslike;
   final String humidity;
-  final double windSpeed;
+  final String windSpeed;
   final double windDir;
   final double pressure;
-  final double visibility;
+  final String visibility;
   final double uvIndex;
   final String conditions;
   final String image;

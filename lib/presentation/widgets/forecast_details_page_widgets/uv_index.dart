@@ -5,7 +5,11 @@ import 'package:weather_app/presentation/widgets/forecast_details_page_widgets/c
 import 'package:weather_app/presentation/widgets/forecast_details_page_widgets/forecast_details_container.dart';
 
 class UvIndex extends StatelessWidget {
-  const UvIndex({super.key});
+  final String uVIndex;
+  const UvIndex({
+    super.key,
+    required this.uVIndex,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -38,9 +42,9 @@ class UvIndex extends StatelessWidget {
             const SizedBox(
               height: 5,
             ),
-            const Text(
-              '4',
-              style: TextStyle(
+            Text(
+              uVIndex,
+              style: const TextStyle(
                 fontFamily: 'SF Pro Display',
                 fontSize: 32,
                 fontWeight: FontWeight.w400,

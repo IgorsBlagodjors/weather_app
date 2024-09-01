@@ -1,15 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:weather_app/design_system/app_colors.dart';
 import 'package:weather_app/design_system/app_icons.dart';
+import 'package:weather_app/domain/daily_data_class.dart';
+import 'package:weather_app/domain/hourly_data_class.dart';
 import 'package:weather_app/presentation/forecast_details_page.dart';
 import 'package:weather_app/presentation/weather_widgets_page.dart';
 import 'package:weather_app/presentation/widgets/home_page_widgets/plus_button.dart';
 
 class CustomBottomNavBar extends StatefulWidget {
   final Function(bool clicked) isLocationPressed;
+  final List<HourlyData> hourlyList;
+  final List<DailyData> weeklyList;
   const CustomBottomNavBar({
     super.key,
     required this.isLocationPressed,
+    required this.hourlyList,
+    required this.weeklyList,
   });
 
   @override
@@ -46,7 +52,10 @@ class _CustomBottomNavBarState extends State<CustomBottomNavBar> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => const WeatherDetailsPage(),
+                    builder: (context) => WeatherDetailsPage(
+                      hourlyList: widget.hourlyList,
+                      weeklyList: widget.weeklyList,
+                    ),
                   ),
                 );
               },
@@ -85,34 +94,6 @@ class _CustomBottomNavBarState extends State<CustomBottomNavBar> {
       ),
     );
   }
-
-  // Future<void> _getCurrentLocation() async {
-  //   Position locationData;
-  //   bool serviceEnabled = await Geolocator.isLocationServiceEnabled();
-  //   if (!serviceEnabled) {
-  //     return Future.error('Location services are disabled');
-  //   }
-
-  //   LocationPermission permission = await Geolocator.checkPermission();
-  //   if (permission == LocationPermission.denied) {
-  //     permission == await Geolocator.requestPermission();
-  //     if (permission == LocationPermission.denied) {
-  //       return Future.error('Location permissions are denied');
-  //     }
-  //   }
-
-  //   if (permission == LocationPermission.deniedForever) {
-  //     return Future.error('Location permissions permamently denied');
-  //   }
-  //   LocationSettings locationSettings = const LocationSettings(
-  //     accuracy: LocationAccuracy.high,
-  //     distanceFilter: 100,
-  //   );
-  //   locationData =
-  //       await Geolocator.getCurrentPosition(locationSettings: locationSettings);
-
-  //   widget.onLocationFetched(locationData);
-  // }
 }
 
 class BottomNavBarPainter extends CustomPainter {
