@@ -6,9 +6,11 @@ import 'package:weather_app/presentation/widgets/forecast_details_page_widgets/f
 
 class SunRise extends StatelessWidget {
   final String sunrise;
+  final String sunset;
   const SunRise({
     super.key,
     required this.sunrise,
+    required this.sunset,
   });
 
   @override
@@ -69,10 +71,10 @@ class SunRise extends StatelessWidget {
               painter: SunPainter(),
             ),
           ),
-          const Padding(
-            padding: EdgeInsets.symmetric(horizontal: 20),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20),
             child: Text(
-              'Sunset: 7:25PM ',
+              'Sunset: $sunset',
               style: AppStyles.regularCallout,
             ),
           ),

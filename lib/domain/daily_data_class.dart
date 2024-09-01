@@ -6,6 +6,7 @@ class DailyData extends Equatable {
   final String temperature;
   final String humidity;
   final DateTime sunrise;
+  final DateTime sunset;
   final String tempMin;
   final String tempMax;
   final String conditions;
@@ -16,6 +17,7 @@ class DailyData extends Equatable {
     required this.temperature,
     required this.humidity,
     required this.sunrise,
+    required this.sunset,
     required this.tempMin,
     required this.tempMax,
     required this.conditions,

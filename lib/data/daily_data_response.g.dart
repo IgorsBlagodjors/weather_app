@@ -21,4 +21,5 @@ Day _$DayFromJson(Map<String, dynamic> json) => Day(
       tempMin: (json['tempmin'] as num).toDouble(),
       tempMax: (json['tempmax'] as num).toDouble(),
       conditions: json['conditions'] as String,
+      sunset: json['sunset'] as String,
     );

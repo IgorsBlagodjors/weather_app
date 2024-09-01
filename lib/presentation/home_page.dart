@@ -69,7 +69,7 @@ class _HomePageState extends State<HomePage> {
                             height: 12,
                           ),
                           Text(
-                            '${WeatherServices.getLiveTemp(hourlyData)}°',
+                            '${WeatherServices.getTemp(hourlyData)}°',
                             style: const TextStyle(
                                 height: 0.8,
                                 fontSize: 96,
@@ -80,7 +80,7 @@ class _HomePageState extends State<HomePage> {
                             height: 12,
                           ),
                           Text(
-                            WeatherServices.getLiveWeatherCondition(hourlyData),
+                            WeatherServices.getWeatherCondition(hourlyData),
                             overflow: TextOverflow.ellipsis,
                             maxLines: 1,
                             style: AppStyles.boldTitle2.copyWith(
@@ -88,7 +88,7 @@ class _HomePageState extends State<HomePage> {
                             ),
                           ),
                           Text(
-                            'H:${WeatherServices.getLiveMinTemp(data)}° L:${WeatherServices.getLiveMaxTemp(data)}°',
+                            'H:${WeatherServices.getMinTemp(data)}° L:${WeatherServices.getMaxTemp(data)}°',
                             style: AppStyles.boldTitle2,
                           ),
                         ],

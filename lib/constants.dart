@@ -285,7 +285,7 @@ class CenterWiew {
   static int getActiveTimeIndex({
     required List<HourlyData> hourlyList,
   }) {
-    String currentTime = getCurrentTime();
+    String currentTime = getTime();
     for (int i = 0; i < hourlyList.length; i++) {
       String hour = hourlyList[i].getTime;
       if (hour == currentTime) {
@@ -294,28 +294,14 @@ class CenterWiew {
     }
     return 0;
   }
-
-  static String getCurrentTime() {
-    DateTime now = DateTime.now();
-    String formattedTime = DateFormat('hh a').format(now);
-    if (formattedTime.startsWith('0')) {
-      return formattedTime.substring(1);
-    }
-    return formattedTime;
-  }
 }
 
 class WeatherServices {
-  static String getLiveTemp(List<HourlyData> hourlyItems) {
-    DateTime now = DateTime.now();
-    for (var data in hourlyItems) {
-      if (data.datetime.hour == now.hour) {
-        return data.temp;
-      }
-    }
-    return 'Unknown';
+  static final WeatherServices _instance = WeatherServices._internal();
+  factory WeatherServices() {
+    return _instance;
   }
-
+  WeatherServices._internal();
   static Future<String> getAddressFromCoordinates() async {
     Position position = await WeatherServices.getCurrentLocation();
     try {
@@ -340,27 +326,43 @@ class WeatherServices {
     }
   }
 
-  static String getLiveWeatherCondition(List<HourlyData> hourlyItems) {
-    DateTime now = DateTime.now();
-    for (var data in hourlyItems) {
-      if (data.datetime.hour == now.hour) {
-        return data.conditions;
-      }
-    }
-    return 'Unknown';
+  static String getTemp(List<HourlyData> hourlyItems) {
+    return _getHourlySelector(hourlyItems, (data) => data.temp);
   }
 
-  static String getLiveWindSpeed(List<HourlyData> hourlyItems) {
-    DateTime now = DateTime.now();
-    for (var data in hourlyItems) {
-      if (data.datetime.hour == now.hour) {
-        return data.windSpeed;
-      }
-    }
-    return 'Unknown';
+  static String getMinTemp(List<DailyData> dailyItems) {
+    return _getDailySelector(dailyItems, (data) => data.tempMin);
   }
 
-  static double getLiveWindDir(List<HourlyData> hourlyItems) {
+  static String getMaxTemp(List<DailyData> dailyItems) {
+    return _getDailySelector(dailyItems, (data) => data.tempMax);
+  }
+
+  static String getWeatherCondition(List<HourlyData> hourlyItems) {
+    return _getHourlySelector(hourlyItems, (data) => data.conditions);
+  }
+
+  static String getWindSpeed(List<HourlyData> hourlyItems) {
+    return _getHourlySelector(hourlyItems, (data) => data.windSpeed);
+  }
+
+  static String getFeelsLike(List<HourlyData> hourlyItems) {
+    return _getHourlySelector(hourlyItems, (data) => data.feelslike);
+  }
+
+  static String getHumidity(List<HourlyData> hourlyItems) {
+    return _getHourlySelector(hourlyItems, (data) => data.humidity);
+  }
+
+  static String getVisibility(List<HourlyData> hourlyItems) {
+    return _getHourlySelector(hourlyItems, (data) => data.visibility);
+  }
+
+  static String getUVIndex(List<HourlyData> hourlyItems) {
+    return _getHourlySelector(hourlyItems, (data) => data.uvIndex);
+  }
+
+  static double getWindDir(List<HourlyData> hourlyItems) {
     DateTime now = DateTime.now();
     for (var data in hourlyItems) {
       if (data.datetime.hour == now.hour) {
@@ -370,37 +372,7 @@ class WeatherServices {
     return 0;
   }
 
-  static double getLiveFeelsLike(List<HourlyData> hourlyItems) {
-    DateTime now = DateTime.now();
-    for (var data in hourlyItems) {
-      if (data.datetime.hour == now.hour) {
-        return data.feelslike;
-      }
-    }
-    return 0;
-  }
-
-  static String getLiveHumidity(List<HourlyData> hourlyItems) {
-    DateTime now = DateTime.now();
-    for (var data in hourlyItems) {
-      if (data.datetime.hour == now.hour) {
-        return data.humidity;
-      }
-    }
-    return 'Unknown';
-  }
-
-  static String getLiveVisibility(List<HourlyData> hourlyItems) {
-    DateTime now = DateTime.now();
-    for (var data in hourlyItems) {
-      if (data.datetime.hour == now.hour) {
-        return data.visibility;
-      }
-    }
-    return 'Unknown';
-  }
-
-  static double getLivePreasure(List<HourlyData> hourlyItems) {
+  static double getPressure(List<HourlyData> hourlyItems) {
     DateTime now = DateTime.now();
     for (var data in hourlyItems) {
       if (data.datetime.hour == now.hour) {
@@ -408,16 +380,6 @@ class WeatherServices {
       }
     }
     return 0;
-  }
-
-  static String getLiveUVIndex(List<HourlyData> hourlyItems) {
-    DateTime now = DateTime.now();
-    for (var data in hourlyItems) {
-      if (data.datetime.hour == now.hour) {
-        return data.uvIndex.toString();
-      }
-    }
-    return 'Unknown';
   }
 
   static String getSunriseForCurrentDay(List<DailyData> dailyItems) {
@@ -431,23 +393,37 @@ class WeatherServices {
     return 'Unknown';
   }
 
-  static String _getTempForCurrentDay(
-      List<DailyData> dailyItems, String Function(DailyData) tempSelector) {
+  static String getSunsetForCurrentDay(List<DailyData> dailyItems) {
     DateTime now = DateTime.now();
+    DateFormat timeFormat = DateFormat('h:mm a');
     for (var data in dailyItems) {
       if (data.date.day == now.day) {
-        return tempSelector(data);
+        return timeFormat.format(data.sunset);
       }
     }
     return 'Unknown';
   }
 
-  static String getLiveMinTemp(List<DailyData> dailyItems) {
-    return _getTempForCurrentDay(dailyItems, (data) => data.tempMin);
+  static String _getDailySelector(
+      List<DailyData> dailyItems, String Function(DailyData) dailySelector) {
+    DateTime now = DateTime.now();
+    for (var data in dailyItems) {
+      if (data.date.day == now.day) {
+        return dailySelector(data);
+      }
+    }
+    return 'Unknown';
   }
 
-  static String getLiveMaxTemp(List<DailyData> dailyItems) {
-    return _getTempForCurrentDay(dailyItems, (data) => data.tempMax);
+  static String _getHourlySelector(List<HourlyData> hourlyItems,
+      String Function(HourlyData) hourlySelector) {
+    DateTime now = DateTime.now();
+    for (var data in hourlyItems) {
+      if (data.datetime.hour == now.hour) {
+        return hourlySelector(data);
+      }
+    }
+    return 'Unknown';
   }
 
   static Future<Position> getCurrentLocation() async {

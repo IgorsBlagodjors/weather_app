@@ -5,13 +5,13 @@ class HourlyData extends Equatable {
   final DateTime datetime;
   final String address;
   final String temp;
-  final double feelslike;
+  final String feelslike;
   final String humidity;
   final String windSpeed;
   final double windDir;
   final double pressure;
   final String visibility;
-  final double uvIndex;
+  final String uvIndex;
   final String conditions;
   final String image;
   const HourlyData({

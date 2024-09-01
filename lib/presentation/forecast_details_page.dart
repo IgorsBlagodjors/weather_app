@@ -84,7 +84,7 @@ class _WeatherDetailsPageState extends State<WeatherDetailsPage> {
                               style: AppStyles.regularLargeTitle,
                             ),
                             Text(
-                              '${WeatherServices.getLiveTemp(widget.hourlyList)}°| ${WeatherServices.getLiveWeatherCondition(widget.hourlyList)}',
+                              '${WeatherServices.getTemp(widget.hourlyList)}°| ${WeatherServices.getWeatherCondition(widget.hourlyList)}',
                               style: AppStyles.boldTitle2.copyWith(
                                 color: const Color(0xFFebebf5).withOpacity(0.6),
                               ),
@@ -120,7 +120,7 @@ class _WeatherDetailsPageState extends State<WeatherDetailsPage> {
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 UvIndex(
-                                  uVIndex: WeatherServices.getLiveUVIndex(
+                                  uVIndex: WeatherServices.getUVIndex(
                                       widget.hourlyList),
                                 ),
                                 const SizedBox(
@@ -129,6 +129,9 @@ class _WeatherDetailsPageState extends State<WeatherDetailsPage> {
                                 SunRise(
                                   sunrise:
                                       WeatherServices.getSunriseForCurrentDay(
+                                          widget.weeklyList),
+                                  sunset:
+                                      WeatherServices.getSunsetForCurrentDay(
                                           widget.weeklyList),
                                 ),
                               ],
@@ -140,9 +143,9 @@ class _WeatherDetailsPageState extends State<WeatherDetailsPage> {
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 Wind(
-                                  windSpeed: WeatherServices.getLiveWindSpeed(
+                                  windSpeed: WeatherServices.getWindSpeed(
                                       widget.hourlyList),
-                                  windDir: WeatherServices.getLiveWindDir(
+                                  windDir: WeatherServices.getWindDir(
                                       widget.hourlyList),
                                 ),
                                 const SizedBox(
@@ -167,7 +170,7 @@ class _WeatherDetailsPageState extends State<WeatherDetailsPage> {
                                   titleIcon: FontAwesomeIcons.temperatureHalf,
                                   title: 'FEELS LIKE',
                                   indications:
-                                      '${WeatherServices.getLiveFeelsLike(widget.hourlyList)}°',
+                                      '${WeatherServices.getFeelsLike(widget.hourlyList)}°',
                                   description:
                                       'Similar to the actual temperature',
                                 ),
@@ -178,7 +181,7 @@ class _WeatherDetailsPageState extends State<WeatherDetailsPage> {
                                   titleIcon: Icons.shower,
                                   title: 'HUMIDITY',
                                   indications:
-                                      '${WeatherServices.getLiveHumidity(widget.hourlyList)}%',
+                                      '${WeatherServices.getHumidity(widget.hourlyList)}%',
                                   description: 'The dew point is 17 right now',
                                 ),
                               ],
@@ -193,7 +196,7 @@ class _WeatherDetailsPageState extends State<WeatherDetailsPage> {
                                   titleIcon: Icons.visibility_sharp,
                                   title: 'VISIBILITY',
                                   indications:
-                                      '${WeatherServices.getLiveVisibility(widget.hourlyList)} km',
+                                      '${WeatherServices.getVisibility(widget.hourlyList)} km',
                                   description:
                                       'Similar to the actual temperature',
                                 ),
@@ -201,7 +204,7 @@ class _WeatherDetailsPageState extends State<WeatherDetailsPage> {
                                   width: 14,
                                 ),
                                 Pressure(
-                                  preasure: WeatherServices.getLivePreasure(
+                                  preasure: WeatherServices.getPressure(
                                       widget.hourlyList),
                                 ),
                               ],

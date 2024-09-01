@@ -17,7 +17,8 @@ class DailyDataResponse {
           date: DateTime.parse(daysItem.datetime),
           temperature: daysItem.temp.toStringAsFixed(0),
           humidity: daysItem.humidity.toStringAsFixed(0),
-          sunrise: DateTime.parse(daysItem.sunrise),
+          sunrise: DateTime.parse('1924-01-03 ${daysItem.sunrise}'),
+          sunset: DateTime.parse('1924-01-03 ${daysItem.sunset}'),
           tempMax: daysItem.tempMax.toStringAsFixed(0),
           tempMin: daysItem.tempMin.toStringAsFixed(0),
           conditions: daysItem.conditions,
@@ -35,6 +36,7 @@ class Day {
   final double temp;
   final double humidity;
   final String sunrise;
+  final String sunset;
   final String conditions;
   @JsonKey(name: 'tempmin')
   final double tempMin;
@@ -49,6 +51,7 @@ class Day {
     required this.tempMin,
     required this.tempMax,
     required this.conditions,
+    required this.sunset,
   });
   factory Day.fromJson(Map<String, dynamic> json) => _$DayFromJson(json);
 }
